@@ -193,7 +193,7 @@
     <h2><a href="#content">Compte-rendu de l’École Thématique Sciences de l’Information Géographiques Reproductibles SIGR</a></h2>
     <div id="toc">
       <ul>
-      <li><a href="#présentation">Présentation</a></li>
+      <li><a href="#présentation-de-lécole">Présentation de l’école</a></li>
       <li><a href="#liens-utiles">Liens utiles</a></li>
       <li><a href="#en-bref-sélection-de-quelques-points-abordés">En bref : sélection de quelques points abordés</a>
       <ul>
@@ -216,7 +216,7 @@
       <li><a href="#sciences-reproductibles-et-analyse-spatiale-quelques-lectures-et-retours-dexpérience">Sciences reproductibles et analyse spatiale : quelques lectures et retours d’expérience</a></li>
       <li><a href="#tenir-un-journal-de-laboratoire-avec-emacs-et-orgmode">Tenir un journal de laboratoire avec emacs et orgmode</a></li>
       <li><a href="#atelier-analyse-spatiale-régression-géographiquement-pondérée-ou-gwr">Atelier analyse spatiale (Régression Géographiquement Pondérée ou GWR)</a></li>
-      <li><a href="#analyse-dimage-raster-et-télédétection">Analyse d’image raster (et télédétection)<a name="conf_madelin_jeudi"></a></a></li>
+      <li><a href="#analyse-dimage-raster-et-télédétection">Analyse d’image raster (et télédétection)</a></li>
       <li><a href="#faire-des-cartes-avec-le-package-r-mapsf">Faire des cartes avec le package R mapsf<a name="off_giraud_jeudi"></a></a></li>
       <li><a href="#image-processing-and-all-things-raster">Image processing and all things raster<a name="atelier_nowosad_vendredi"></a></a></li>
       <li><a href="#questions-et-ressources-générales-sur-lutilisation-de-r">Questions et ressources générales sur l’utilisation de R</a></li>
@@ -242,8 +242,8 @@
 <!-- </style> -->
 <p>Chargement des packages :</p>
 <p><em>Oléron, 28 juin au 2 juillet 2021</em></p>
-<div id="présentation" class="section level2">
-<h2>Présentation</h2>
+<div id="présentation-de-lécole" class="section level2">
+<h2>Présentation de l’école</h2>
 <p>L’école thématique SIGR était organisée par <a href="https://riate.cnrs.fr/">l’UMS Riate</a>, avec un comité scientifique composé de :</p>
 <ul>
 <li><strong>Claude Grasland</strong> (UMR Géographie-cités - Université de Paris)</li>
@@ -275,7 +275,7 @@
 <h3>Bonnes pratiques en matière de reproductibilité</h3>
 <p>2 points clés de la formation, qui sont revenus tout au long :</p>
 <ul>
-<li>Pour documenter son code, ou pour des besoins de formations : on peut créer des “documents computationnels” en <a href="#atelier_ysebaert_lundi">R Markdown</a> (programmation lettrée), alternant texte explicatif en markdown et code R. Ces documents peuvent être exportés en HTML, PDF… (<a href="https://github.com/sigr2021/markdown/blob/main/index.Rmd">exemple de doc R Markdown</a> et <a href="https://sigr2021.github.io/markdown/">sa sortie HTML</a></li>
+<li>Pour documenter son code, ou pour des besoins de formations : on peut créer des “documents computationnels” en <a href="#atelier_ysebaert_lundi">R Markdown</a> (programmation lettrée), alternant texte explicatif en markdown et code R. Ces documents peuvent être exportés en HTML, PDF… (<a href="https://github.com/sigr2021/markdown/blob/main/index.Rmd">exemple de doc R Markdown</a> et <a href="https://sigr2021.github.io/markdown/">sa sortie HTML</a>)</li>
 <li>Utilisation de <a href="https://peerj.com/preprints/3159v2/">git</a> pour garder trace de tout l’historique des modifications d’un fichier texte (code, markdown…) et pour travailler à plusieurs sur un même fichier. On peut utiliser git non seulement pour du code, mais aussi par ex. pour travailler sur un article à plusieurs, et éviter les allers-retours de fichiers word par mail ! Il y a tout de même un coût d’entrée pour apprendre à se servir de cet outil.</li>
 </ul>
 </div>
@@ -344,7 +344,7 @@
 <h3>Produire des documents reproductibles avec R Markdown</h3>
 <p><em><strong>Ronan Ysebaert</strong>, <a href="http://riate.cnrs.fr/?page_id=38">UMS RIATE, CNRS</a> (atelier)</em></p>
 <p><a href="https://sigr2021.github.io/markdown/">Lien vers la présentation au format HTML</a></p>
-<p><a href="https://github.com/sigr2021/markdown/blob/main/index.Rmd">Lien vers le code de la présentation au format R Markdown</a></p>
+<p><a href="https://github.com/sigr2021/markdown/">Lien vers le dépôt github de la présentation</a></p>
 <p>Un document markdown est un fichier texte utilisant une syntaxe très simple pour la mise en forme, comme par exemple :</p>
 <pre><code># titre 1
 ## titre 2
@@ -385,7 +385,7 @@ titre 2
 <h3>Présentez vos travaux en Markdown</h3>
 <p><em><strong>Nicolas Lambert</strong>, <a href="http://riate.cnrs.fr/?page_id=38">UMS RIATE, CNRS</a> (atelier)</em></p>
 <p><a href="https://sigr2021.github.io/xaringan/">Lien vers la présentation au format HTML</a></p>
-<p><a href="https://github.com/sigr2021/xaringan/blob/main/index.Rmd">Lien vers le code de la présentation au format R Markdown</a></p>
+<p><a href="https://github.com/sigr2021/xaringan">Lien vers le dépôt github de la présentation</a></p>
 <p>Cet atelier présente le package R <a href="https://github.com/yihui/xaringan">Xaringan</a> créé par Yihui Xie permettant de générer des présentations HTML à partir d’un document R Markdown.</p>
 <p>C’est donc un outil qui peut remplacer PowerPoint par exemple, particulièrement utile pour présenter du code, mais nécessitant une prise en main. On peut inclure du code R et son résultat (texte, tableaux, graphiques, cartes…).</p>
 <p>La présentation de cet atelier et du précédent sont réalisées avec Xaringan.</p>
@@ -396,17 +396,22 @@ titre 2
 <h3>Introduction à git</h3>
 <p><em><strong>Thimothée Giraud</strong>, <a href="http://riate.cnrs.fr/?page_id=38">UMS RIATE, CNRS</a> (atelier)</em></p>
 <p><a href="https://sigr2021.github.io/git/">Lien vers la présentation au format HTML</a></p>
-<p><a href="https://github.com/sigr2021/git/blob/master/index.Rmd">Lien vers le code de la présentation au format R Markdown</a></p>
+<p><a href="https://github.com/sigr2021/git/">Lien vers le dépôt github de la présentation</a></p>
 <p><em>Lecture préalable : Bryan J. 2017. Excuse me, do you have a moment to talk about version control? PeerJ Preprints 5:e3159v2 <a href="https://doi.org/10.7287/peerj.preprints.3159v2" class="uri">https://doi.org/10.7287/peerj.preprints.3159v2</a></em></p>
-<p>git = système de gestion de version, permet de : * garder trace de l’historique de toutes les modifications faites sur des fichiers texte (code) * travailler à plusieurs sur un même fichier texte * partager son code !</p>
+<p>git = système de gestion de version, permet de :</p>
+<ul>
+<li>garder trace de l’historique de toutes les modifications faites sur des fichiers texte (code)</li>
+<li>travailler à plusieurs sur un même fichier texte</li>
+<li>partager son code !</li>
+</ul>
 <p>Plusieurs plate-formes implémentent le logiciel git : GitHub, GitLab, + plate-formes institutionnelles</p>
-<p>L’objectif de l’atelier est de créer un compte github, configurer git sur sa machine avec une clé SSH pour s’authentifier, créer un dépôt = projet avec une présentation rmarkdown, et mettre en ligne cette présentation. Voir la présentation pour le pas à pas détaillé.</p>
+<p>L’objectif de l’atelier est de créer un compte github, configurer git sur sa machine avec une clé SSH pour s’authentifier, créer un dépôt = projet avec une présentation rmarkdown, et mettre en ligne cette présentation. Voir la présentation pour le pas à pas détaillé (c’est ce que j’ai utilisé pour ce CR).</p>
 </div>
 <div id="gis-and-mapping---a-lecture-on-the-gis-and-mapping-ecosystem-of-r" class="section level3">
 <h3>GIS and mapping - A lecture on the GIS and mapping ecosystem of R</h3>
 <p><em><strong>Jakub Nowosad</strong>, <a href="https://nowosad.github.io/">Institute of Geoecology and Geoinformation - Adam Mickiewicz University, Pologne</a> et <strong>Robin Lovelace</strong>, <a href="https://environment.leeds.ac.uk/transport/staff/953/dr-robin-lovelace">Institute for Transport Studies - University of Leeds, Royaume-Uni</a> (conférence)</em></p>
 <p><a href="https://nowosad.github.io/SIGR2021/lecture/lecture.html">Lien vers la présentation au format HTML</a></p>
-<p><a href="https://github.com/Nowosad/SIGR2021/blob/master/lecture/lecture.Rmd">Lien vers le code de la présentation au format R Markdown</a></p>
+<p><a href="https://github.com/Nowosad/SIGR2021/tree/master/lecture/">Lien vers le dépôt github de la présentation</a></p>
 <p>L’écosystème R propose beaucoup d’outils pour les données géographiques, pour explorer des données, les traiter, les analyser, les transformer, les convertir vers d’autres formats, les visualiser… Il est donc important de prendre le bon outil pour ce qu’on veut faire !</p>
 <p>Il y a aussi pas mal d’outils pour partager <a href="https://rpubs.com/">des cartes</a>, des <a href="https://excalidraw.com/">workflow</a>, du <a href="https://github.com/">code</a>…</p>
 <p>Liste de packages R utiles en :</p>
@@ -457,10 +462,9 @@ titre 2
 <h3>GIS and mapping workshop</h3>
 <p><em><strong>Jakub Nowosad</strong>, <a href="https://nowosad.github.io/">Institute of Geoecology and Geoinformation - Adam Mickiewicz University, Pologne</a> et <strong>Robin Lovelace</strong>, <a href="https://environment.leeds.ac.uk/transport/staff/953/dr-robin-lovelace">Institute for Transport Studies - University of Leeds, Royaume-Uni</a> (atelier)</em></p>
 <p>Un atelier très dense où on verra comment utiliser les jeux de données test fournis dans certains packages R, importer des données OpenStreetMap, voir les données manquantes, et faire des cartes statiques et interactives !</p>
-<p><a href="https://nowosad.github.io/SIGR2021/workshop1/workshop1_rl.html">Lien vers la partie 1 au format HTML</a></p>
-<p><a href="https://github.com/Nowosad/SIGR2021/tree/master/workshop1">Lien vers la partie 1 au format R Markdown</a></p>
-<p><a href="https://nowosad.github.io/SIGR2021/workshop1/workshop1_jn.html">Lien vers la partie 2 au format HTML</a></p>
-<p><a href="https://github.com/Nowosad/SIGR2021/tree/master/workshop2">Lien vers la partie 2 au format R Markdown</a></p>
+<p><a href="https://nowosad.github.io/SIGR2021/workshop1/workshop1_rl.html">Lien vers la partie 1 (Robin) au format HTML</a></p>
+<p><a href="https://nowosad.github.io/SIGR2021/workshop1/workshop1_jn.html">Lien vers la partie 2 (Jakub) au format HTML</a></p>
+<p><a href="https://github.com/Nowosad/SIGR2021/tree/master/workshop1">Lien vers le dépôt github de l’atelier</a></p>
 <div id="partie-1-avec-robin-lovelace-importer-des-données-voir-les-données-manquantes" class="section level4">
 <h4>Partie 1 avec Robin Lovelace : importer des données, voir les données manquantes…</h4>
 <p>Où trouver des <strong>jeux de données exemple</strong> ?</p>
@@ -605,7 +609,7 @@ titre 2
 <h3>Atelier analyse spatiale (Régression Géographiquement Pondérée ou GWR)</h3>
 <p><em><strong>Thierry Feuillet</strong>, <a href="https://www.ladyss.com/feuillet-thierry?lang=fr">UMR LADYSS - Université Paris 8 Vincennes - Saint-Denis</a> (atelier)</em></p>
 <p><a href="https://sigr2021.github.io/gwr/">Lien vers la présentation au format HTML</a></p>
-<p><a href="https://sigr2021.github.io/gwr/">Lien vers le code de la présentation au format R Markdown</a></p>
+<p><a href="https://sigr2021.github.io/gwr/">Lien vers le dépôt github de l’atelier</a></p>
 <p><em>Lecture préalable : Helbich, M., Brunauer, W., Hagenauer, J., &amp; Leitner, M., Data-driven regionalization of housing markets, 2013. Annals of the Association of American Geographers, 103(4), 871-889. <a href="https://www.geog.uni-heidelberg.de/md/chemgeo/geog/lehrstuehle/gis/helbich_etal_2012.pdf" class="uri">https://www.geog.uni-heidelberg.de/md/chemgeo/geog/lehrstuehle/gis/helbich_etal_2012.pdf</a></em></p>
 <p>Atelier sur les prix de l’immobilier sur l’île d’Oléron : données DVF (Demandes de Valeurs Foncières) disponibles sur data.gouv en licence ouverte.</p>
 <p>Concepts manipulés : <strong>Hétérogénéité spatiale</strong>, qui a a pour traduction d’un point de vue statistique la <strong>non-stationnarité spatiale</strong>, c’est-à-dire l’instabilité, dans l’espace, des moyennes, des variances et des covariances. La méthode <strong>GWR</strong> est une méthode de régression locale pour explorer la non-stationnarité spatiale à travers des cartes de relation.</p>
@@ -621,7 +625,7 @@ titre 2
 <li>l’interprétation est parfois délicate, nécessite de bien connaître le sujet</li>
 </ul>
 <p>La présentation inclue le pas à pas détaillé avec les commandes R. On trouvera aussi le détail de la méthode dans le chapitre 9 du manuel de géographie quantitative de T. Feuillet, E. Cossart et H. Commenges (2019).</p>
-<p>En résumé :</p>
+<p>Petit résumé de l’atelier :</p>
 <p>On regarde la distribution de la <strong>variable dépendante</strong>, = prix de vente des maisons. Après suppression d’une vaeur aberrante, cette distribution apparaît dissymétrique.</p>
 <p>On utilise comme <strong>variables indépendantes</strong> :</p>
 <ul>
@@ -635,7 +639,7 @@ titre 2
 <p>Il faut d’abord définir le voisinage, on peut utiliser plusieurs méthodes :</p>
 <ul>
 <li><strong>pondération exponentielle</strong> : prend en compte ttes les maisons, avec pondération en fonction distance (fonction <code>nNeigh.exp</code>)</li>
-<li>**pondération *bicarrée** : au-delà d’une certaine distance, les maisons ne seront pas prises en compte (fonction <code>nNeigh.bisq</code>)</li>
+<li><strong>pondération bicarrée</strong> : au-delà d’une certaine distance, les maisons ne seront pas prises en compte (fonction <code>nNeigh.bisq</code>)</li>
 </ul>
 <p>On va estimer la GWR avec ces 2 pondérations, avec la fonction <code>gwr.basic</code>. La GWR avec pondération exponentielle est la plus performante, avec un r2 de 0.58 contre un r2 de 0.50 pour la pondération bicarrée. On voit aussi qu’il semble exister une non-stationnarité spatiale, et même des inversions de signes pour la distance au littoral.</p>
 <p>On cartographie ensuite les betas de chaque variable pour décrire cette non-stationnarité spatiale, en faisant 3 cartes, une pour chaque variable. Les points y apparaissent uniquement si leur t-value es supérieure à 1.96 c-à-d significatif.</p>
@@ -652,7 +656,43 @@ titre 2
 <p>On aboutit au final à 6 clusters. Si on prend l’exemple du cluster central de St Pierre d’Oléron, l’effet de la distance littoral est &gt; moyenne, l’effet de la surface réelle &lt; moyenne</p>
 </div>
 <div id="analyse-dimage-raster-et-télédétection" class="section level3">
-<h3>Analyse d’image raster (et télédétection)<a name="conf_madelin_jeudi"></a></h3>
+<h3>Analyse d’image raster (et télédétection)</h3>
+<p><em><strong>Malika Madelin</strong>, <a href="http://www.prodig.cnrs.fr/spip.php?article1589">UMR PRODIG - Université de Paris</a> (conférence)</em></p>
+<p><a href="https://mmadelin.github.io/sigr2021/SIGR2021_raster_MM.html#1">Lien vers la présentation au format HTML</a></p>
+<p><a href="https://github.com/mmadelin/sigr2021">Lien vers le dépôt gihub de la présentation</a></p>
+<p>Il existe plusieurs plate-formes où on peut accéder aux images satellite : Copernicus (ESA), Earth Explorer, Sentinel Hub, Google Earth Explorer… Selon la plate-forme, pas toujours besoin de télécharger les données, on peut parfois lancer des traitements directement sur la plate-forme.</p>
+<p>A propos du poids des images : le + souvent, ascii &gt; geotiff &gt; geopackage, mais ça n’est pas immuable.</p>
+<p>Package <a href="https://r-spatial.github.io/stars/">stars</a> pour les datacubes (données vecteur et raster) : utile pour données NetCDF</p>
+<p>Avantage des données raster par rapport à la reproductibilité :</p>
+<ul>
+<li>mode de production souvent homogène</li>
+<li>données souvent accessibles</li>
+<li>souvent dans des formats ouverts</li>
+<li>bibliothèques C communes à plusieurs logiciels (GDAL…)</li>
+</ul>
+<p>3 packages phares pour les raster sous R :</p>
+<ul>
+<li>raster</li>
+<li>stars</li>
+<li>terra</li>
+</ul>
+<p>Comparatif du blog de seascape :</p>
+<blockquote>
+<p>So terra was about 8.5 times faster than raster and stars was about 3 times faster than terra (so about 26 times faster than raster).</p>
+</blockquote>
+<p>On peut lire un même geotiff avec chacun de ces 3 packages, le résultat sera un objet de type différent selon le package.</p>
+<p>Pour gérer les <strong>valeurs manquantes</strong> :</p>
+<p>Donne la valeur NA (non renseigné) aux pixels ayant pour valeur -9999 :</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>r[r[]<span class="sc">==</span> <span class="sc">-</span><span class="dv">9999</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span></code></pre></div>
+<p>A l’inverse, donne aux pixels NA la valeur 0 :</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>r[<span class="fu">is.na</span>(r)] <span class="ot">&lt;-</span> <span class="dv">0</span></span></code></pre></div>
+<p>3 types d’opérations :</p>
+<ul>
+<li>locales : reclassification, calculatrice raster…</li>
+<li>focales : filtres passe-bas/passe-haut, calcul de pente…</li>
+<li>zonales ou globales : statistiques zonales…</li>
+</ul>
+<p>Pour la visualisations, en + des 3 packages déjà cités : - sp avec <code>spplot()</code> - rastervis avec <code>levelplot()</code> : histogrammes, gère bien vignettes, pratique pour données temporelles - leaflet avec <code>addRasterImage()</code> (attention aux projections et aux volumes des rasters) - tmap avec <code>tm_raster()</code> - rayshader - mapview…</p>
 </div>
 <div id="faire-des-cartes-avec-le-package-r-mapsf" class="section level3">
 <h3>Faire des cartes avec le package R mapsf<a name="off_giraud_jeudi"></a></h3>
@@ -663,7 +703,7 @@ titre 2
 <div id="questions-et-ressources-générales-sur-lutilisation-de-r" class="section level3">
 <h3>Questions et ressources générales sur l’utilisation de R</h3>
 <p><a href="https://hpecout.gitpages.huma-num.fr/Intro_R_Rstudio_FR/#/">Introduction à R et RStudio (Hughes Pécout)</a></p>
-<p>[Projet Rzine(<a href="https://rzine.fr/" class="uri">https://rzine.fr/</a>)] : partage de ressouurces autour de R dans les SHS</p>
+<p><a href="https://rzine.fr/">Projet Rzine</a> : partage de ressources autour de R dans les SHS</p>
 <p>Reproductibilité avec R, comment utiliser les mêmes versions de packages ?</p>
 <ul>
 <li><strong>sessionInfo()</strong>: commande R permettant de déclarer le système utilisé à la fin du programme ou du .rmd</li>
@@ -681,7 +721,9 @@ titre 2
 <li>Bryan J., Excuse me, do you have a moment to talk about version control?, 2017, PeerJ Preprints 5:e3159v2 <a href="https://doi.org/10.7287/peerj.preprints.3159v2" class="uri">https://doi.org/10.7287/peerj.preprints.3159v2</a></li>
 <li>Desquilbet L., Granger S., Hejblum B., Legrand A., Pernot P., Rougier N., Vers une recherche reproductible - Faire évoluer ses pratiques, 2019, <a href="https://rr-france.github.io/bookrr/" class="uri">https://rr-france.github.io/bookrr/</a> (note : je l’ai au format papier si ça intéresse quelqu’un)</li>
 <li>Feuillet T., Cossart E., Commenges H., Manuel de géographie quantitative - Concepts, outils, méthodes, 2019, <a href="https://hal.archives-ouvertes.fr/hal-02001070" class="uri">https://hal.archives-ouvertes.fr/hal-02001070</a> (note : dispo dans mon bureau)</li>
+<li>Ghosh A., Hijmans R., 2021, Remote Sensing Image Analysis with R, <a href="https://rspatial.org/terra/rs/rs.pdf" class="uri">https://rspatial.org/terra/rs/rs.pdf</a></li>
 <li>Helbich, M., Brunauer, W., Hagenauer, J., &amp; Leitner, M., Data-driven regionalization of housing markets, 2013. Annals of the Association of American Geographers, 103(4), 871-889. <a href="https://www.geog.uni-heidelberg.de/md/chemgeo/geog/lehrstuehle/gis/helbich_etal_2012.pdf" class="uri">https://www.geog.uni-heidelberg.de/md/chemgeo/geog/lehrstuehle/gis/helbich_etal_2012.pdf</a></li>
+<li>Hijmans R., Spatial Data Science with R, <a href="https://rspatial.org/" class="uri">https://rspatial.org/</a></li>
 <li>Kedron P., Frazier A., Trgovac A., Nelson T., Fotheringham S., Reproducibility and Replicability in Geographical Analysis, 2019, Geographical Analysis, Volume 53, Issue 1. <a href="https://doi.org/10.1111/gean.12221" class="uri">https://doi.org/10.1111/gean.12221</a></li>
 <li>Pebesma E., Bivand R., Spatial Data Science with applications in R, 2021, <a href="https://r-spatial.org/book/" class="uri">https://r-spatial.org/book/</a></li>
 <li>Pouzat C., Legrand A., Hinsen K., MOOC Recherche Reproductible: Principes méthodologiques pour une science transparente, <a href="https://www.fun-mooc.fr/fr/cours/recherche-reproductible-principes-methodologiques-pour-une-science-transparente/" class="uri">https://www.fun-mooc.fr/fr/cours/recherche-reproductible-principes-methodologiques-pour-une-science-transparente/</a></li>

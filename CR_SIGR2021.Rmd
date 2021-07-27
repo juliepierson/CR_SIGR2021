@@ -32,7 +32,7 @@ library(RColorBrewer)
 
 *Oléron, 28 juin au 2 juillet 2021*
 
-## Présentation
+## Présentation de l'école
 
 L'école thématique SIGR était organisée par [l'UMS Riate](https://riate.cnrs.fr/), avec un comité scientifique composé de :
 
@@ -66,7 +66,7 @@ En identifiant les principales avancées conceptuelles, méthodologiques et tech
 
 2 points clés de la formation, qui sont revenus tout au long :
 
-* Pour documenter son code, ou pour des besoins de formations : on peut créer des "documents computationnels" en [R Markdown](#atelier_ysebaert_lundi) (programmation lettrée), alternant texte explicatif en markdown et code R. Ces documents peuvent être exportés en HTML, PDF... ([exemple de doc R Markdown](https://github.com/sigr2021/markdown/blob/main/index.Rmd) et [sa sortie HTML](https://sigr2021.github.io/markdown/)
+* Pour documenter son code, ou pour des besoins de formations : on peut créer des "documents computationnels" en [R Markdown](#atelier_ysebaert_lundi) (programmation lettrée), alternant texte explicatif en markdown et code R. Ces documents peuvent être exportés en HTML, PDF... ([exemple de doc R Markdown](https://github.com/sigr2021/markdown/blob/main/index.Rmd) et [sa sortie HTML](https://sigr2021.github.io/markdown/))
 * Utilisation de [git](https://peerj.com/preprints/3159v2/) pour garder trace de tout l'historique des modifications d'un fichier texte (code, markdown...) et pour travailler à plusieurs sur un même fichier. On peut utiliser git non seulement pour du code, mais aussi par ex. pour travailler sur un article à plusieurs, et éviter les allers-retours de fichiers word par mail ! Il y a tout de même un coût d'entrée pour apprendre à se servir de cet outil.
 
 ### Créer un environnement reproductible dans R
@@ -134,7 +134,7 @@ Un exemple intéressant : un [article exécutable par Carl Boetinger](https://gi
 
 [Lien vers la présentation au format HTML](https://sigr2021.github.io/markdown/)
 
-[Lien vers le code de la présentation au format R Markdown](https://github.com/sigr2021/markdown/blob/main/index.Rmd)
+[Lien vers le dépôt github de la présentation](https://github.com/sigr2021/markdown/)
 
 Un document markdown est un fichier texte utilisant une syntaxe très simple pour la mise en forme, comme par exemple :
 
@@ -192,7 +192,7 @@ Cet atelier se termine avec un focus sur les **bonnes pratiques pour avoir un co
 
 [Lien vers la présentation au format HTML](https://sigr2021.github.io/xaringan/)
 
-[Lien vers le code de la présentation au format R Markdown](https://github.com/sigr2021/xaringan/blob/main/index.Rmd)
+[Lien vers le dépôt github de la présentation](https://github.com/sigr2021/xaringan)
 
 Cet atelier présente le package R [Xaringan](https://github.com/yihui/xaringan) créé par Yihui Xie permettant de générer des présentations HTML à partir d'un document R Markdown. 
 
@@ -210,18 +210,19 @@ Un autre intérêt de Xaringan est de pouvoir utiliser différents [thèmes](htt
 
 [Lien vers la présentation au format HTML](https://sigr2021.github.io/git/)
 
-[Lien vers le code de la présentation au format R Markdown](https://github.com/sigr2021/git/blob/master/index.Rmd)
+[Lien vers le dépôt github de la présentation](https://github.com/sigr2021/git/)
 
 *Lecture préalable : Bryan J. 2017. Excuse me, do you have a moment to talk about version control? PeerJ Preprints 5:e3159v2 https://doi.org/10.7287/peerj.preprints.3159v2*
 
 git = système de gestion de version, permet de :
+
 * garder trace de l'historique de toutes les modifications faites sur des fichiers texte (code)
 * travailler à plusieurs sur un même fichier texte
 * partager son code !
 
 Plusieurs plate-formes implémentent le logiciel git : GitHub, GitLab, + plate-formes institutionnelles
 
-L'objectif de l'atelier est de créer un compte github, configurer git sur sa machine avec une clé SSH pour s'authentifier, créer un dépôt = projet avec une présentation rmarkdown, et mettre en ligne cette présentation. Voir la présentation pour le pas à pas détaillé.
+L'objectif de l'atelier est de créer un compte github, configurer git sur sa machine avec une clé SSH pour s'authentifier, créer un dépôt = projet avec une présentation rmarkdown, et mettre en ligne cette présentation. Voir la présentation pour le pas à pas détaillé (c'est ce que j'ai utilisé pour ce CR).
 
 ### GIS and mapping - A lecture on the GIS and mapping ecosystem of R
 
@@ -229,7 +230,7 @@ L'objectif de l'atelier est de créer un compte github, configurer git sur sa ma
 
 [Lien vers la présentation au format HTML](https://nowosad.github.io/SIGR2021/lecture/lecture.html)
 
-[Lien vers le code de la présentation au format R Markdown](https://github.com/Nowosad/SIGR2021/blob/master/lecture/lecture.Rmd)
+[Lien vers le dépôt github de la présentation](https://github.com/Nowosad/SIGR2021/tree/master/lecture/)
 
 L'écosystème R propose beaucoup d'outils pour les données géographiques, pour explorer des données, les traiter, les analyser, les transformer, les convertir vers d'autres formats, les visualiser... Il est donc important de prendre le bon outil pour ce qu'on veut faire !
 
@@ -291,13 +292,11 @@ Sur un autre sujet, comment créditer les auteurs : utilisation de [CRediT](http
 
 Un atelier très dense où on verra comment utiliser les jeux de données test fournis dans certains packages R, importer des données OpenStreetMap, voir les données manquantes, et faire des cartes statiques et interactives !
 
-[Lien vers la partie 1 au format HTML](https://nowosad.github.io/SIGR2021/workshop1/workshop1_rl.html)
+[Lien vers la partie 1 (Robin) au format HTML](https://nowosad.github.io/SIGR2021/workshop1/workshop1_rl.html)
 
-[Lien vers la partie 1 au format R Markdown](https://github.com/Nowosad/SIGR2021/tree/master/workshop1)
+[Lien vers la partie 2 (Jakub) au format HTML](https://nowosad.github.io/SIGR2021/workshop1/workshop1_jn.html)
 
-[Lien vers la partie 2 au format HTML](https://nowosad.github.io/SIGR2021/workshop1/workshop1_jn.html)
-
-[Lien vers la partie 2 au format R Markdown](https://github.com/Nowosad/SIGR2021/tree/master/workshop2)
+[Lien vers le dépôt github de l'atelier](https://github.com/Nowosad/SIGR2021/tree/master/workshop1)
 
 #### Partie 1 avec Robin Lovelace : importer des données, voir les données manquantes...
 
@@ -506,7 +505,7 @@ Outil permettant d'être très efficace mais nécessitant un temps d'apprentissa
 
 [Lien vers la présentation au format HTML](https://sigr2021.github.io/gwr/)
 
-[Lien vers le code de la présentation au format R Markdown](https://sigr2021.github.io/gwr/)
+[Lien vers le dépôt github de l'atelier](https://sigr2021.github.io/gwr/)
 
 *Lecture préalable : Helbich, M., Brunauer, W., Hagenauer, J., & Leitner, M., Data-driven regionalization of housing markets, 2013. Annals of the Association of American Geographers, 103(4), 871-889. https://www.geog.uni-heidelberg.de/md/chemgeo/geog/lehrstuehle/gis/helbich_etal_2012.pdf*
 
@@ -529,7 +528,7 @@ Faiblesses de la GWR :
 
 La présentation inclue le pas à pas détaillé avec les commandes R. On trouvera aussi le détail de la méthode dans le chapitre 9 du manuel de géographie quantitative de T. Feuillet, E. Cossart et H. Commenges (2019).
 
-En résumé : 
+Petit résumé de l'atelier : 
 
 On regarde la distribution de la **variable dépendante**, = prix de vente des maisons. Après suppression d'une vaeur aberrante, cette distribution apparaît dissymétrique.
 
@@ -583,6 +582,56 @@ On aboutit au final à 6 clusters. Si on prend l'exemple du cluster central de S
 
 Il existe plusieurs plate-formes où on peut accéder aux images satellite : Copernicus (ESA), Earth Explorer, Sentinel Hub, Google Earth Explorer... Selon la plate-forme, pas toujours besoin de télécharger les données, on peut parfois lancer des traitements directement sur la plate-forme.
 
+A propos du poids des images : le + souvent, ascii > geotiff > geopackage, mais ça n'est pas immuable.
+
+Package [stars](https://r-spatial.github.io/stars/) pour les datacubes (données vecteur et raster) : utile pour données NetCDF
+
+Avantage des données raster par rapport à la reproductibilité :
+
+* mode de production souvent homogène
+* données souvent accessibles
+* souvent dans des formats ouverts
+* bibliothèques C communes à plusieurs logiciels (GDAL...)
+
+3 packages phares pour les raster sous R :
+
+* raster
+* stars
+* terra
+
+Comparatif du blog [seascapemodels](https://www.seascapemodels.org/rstats/2021/06/01/STARS.html) :
+
+> So terra was about 8.5 times faster than raster and stars was about 3 times faster than terra (so about 26 times faster than raster).
+
+On peut lire un même geotiff avec chacun de ces 3 packages, le résultat sera un objet de type différent selon le package.
+
+Pour gérer les **valeurs manquantes** :
+
+Donne la valeur NA (non renseigné) aux pixels ayant pour valeur -9999 :
+```{r}
+r[r[]== -9999] <- NA
+```
+
+A l'inverse, donne aux pixels NA la valeur 0 :
+```{r}
+r[is.na(r)] <- 0
+```
+
+3 types d'opérations :
+
+- locales : reclassification, calculatrice raster...
+- focales : filtres passe-bas/passe-haut, calcul de pente...
+- zonales ou globales : statistiques zonales...
+
+Pour la visualisations, en +  des 3 packages déjà cités :
+
+- sp avec `spplot()`
+- rastervis avec `levelplot()` : histogrammes, gère bien vignettes, pratique pour données temporelles
+- leaflet avec `addRasterImage()` (attention aux projections et aux volumes des rasters)
+- tmap avec `tm_raster()`
+- rayshader
+- mapview...
+
 ### Faire des cartes avec le package R mapsf<a name="off_giraud_jeudi"></a>
 
 ### Image processing and all things raster<a name="atelier_nowosad_vendredi"></a>
@@ -591,7 +640,7 @@ Il existe plusieurs plate-formes où on peut accéder aux images satellite : Cop
 
 [Introduction à R et RStudio (Hughes Pécout)](https://hpecout.gitpages.huma-num.fr/Intro_R_Rstudio_FR/#/)
 
-[Projet Rzine(https://rzine.fr/)] : partage de ressouurces autour de R dans les SHS
+[Projet Rzine](https://rzine.fr/) : partage de ressources autour de R dans les SHS
 
 Reproductibilité avec R, comment utiliser les mêmes versions de packages ?
 
@@ -609,7 +658,9 @@ Question de la **reproductibilité opérationnelle** : ressources humaines et **
 * Bryan J., Excuse me, do you have a moment to talk about version control?, 2017, PeerJ Preprints 5:e3159v2 https://doi.org/10.7287/peerj.preprints.3159v2
 * Desquilbet L., Granger S., Hejblum B., Legrand A., Pernot P., Rougier N., Vers une recherche reproductible - Faire évoluer ses pratiques, 2019, https://rr-france.github.io/bookrr/ (note : je l'ai au format papier si ça intéresse quelqu'un)
 * Feuillet T., Cossart E., Commenges H., Manuel de géographie quantitative - Concepts, outils, méthodes, 2019, https://hal.archives-ouvertes.fr/hal-02001070 (note : dispo dans mon bureau)
+* Ghosh A., Hijmans R., 2021, Remote Sensing Image Analysis with R, https://rspatial.org/terra/rs/rs.pdf
 * Helbich, M., Brunauer, W., Hagenauer, J., & Leitner, M., Data-driven regionalization of housing markets, 2013. Annals of the Association of American Geographers, 103(4), 871-889. https://www.geog.uni-heidelberg.de/md/chemgeo/geog/lehrstuehle/gis/helbich_etal_2012.pdf
+* Hijmans R., Spatial Data Science with R, https://rspatial.org/
 * Kedron P., Frazier A., Trgovac A., Nelson T., Fotheringham S., Reproducibility and Replicability in Geographical Analysis, 2019, Geographical Analysis, Volume 53, Issue 1. https://doi.org/10.1111/gean.12221
 * Pebesma E., Bivand R., Spatial Data Science with applications in R, 2021,  https://r-spatial.org/book/
 * Pouzat C., Legrand A., Hinsen K., MOOC Recherche Reproductible: Principes méthodologiques pour une science transparente, https://www.fun-mooc.fr/fr/cours/recherche-reproductible-principes-methodologiques-pour-une-science-transparente/
