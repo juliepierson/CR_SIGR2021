@@ -1,0 +1,616 @@
+---
+title: "Compte-rendu de l'École Thématique Sciences de l'Information Géographiques Reproductibles SIGR"
+author: "Julie"
+date: "23/07/2021"
+output: 
+  rmdformats::readthedown:
+    toc_depth: 3
+---
+
+<!-- <style> -->
+<!--   body { -->
+<!--     text-align: justify} -->
+<!-- </style> -->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      eval = FALSE)
+```
+
+Chargement des packages :
+```{r eval=TRUE, include=FALSE}
+library(sf)
+library(spData)
+library(dplyr)
+library(osmdata)
+library(skimr)
+library(osmextract)
+library(tmap)
+library(terra)
+library(RColorBrewer)
+```
+
+*Oléron, 28 juin au 2 juillet 2021*
+
+## Présentation
+
+L'école thématique SIGR était organisée par [l'UMS Riate](https://riate.cnrs.fr/), avec un comité scientifique composé de :
+
+* **Claude Grasland** (UMR Géographie-cités - Université de Paris)
+* **Renaud Le Goix** (UMR Géographie-cités - Université de Paris)
+* **Marion Le Texier** (UMR IDEES - Université de Rouen Normandie) 
+
+Et comme responsable scientifique : **Timothée Giraud** (UMS RIATE - CNRS).
+
+L'organisation était assurée par l'équipe du RIATE :
+
+* **Timothée Giraud**
+* **Nicolas Lambert**
+* **Ronan Ysebaert**
+
+La liste des intervenants est disponible [ici](https://sigr2020.sciencesconf.org/resource/page/id/4).
+
+Cette école visait à répondre aux problématiques de production, publication, diffusion ou valorisation de traitements de données géographiques dans une démarche de recherche reproductible.
+
+En identifiant les principales avancées conceptuelles, méthodologiques et techniques du domaine via un focus sur les méthodes de traitement de l’information géographique, cette école a permis aux participants de s’initier à la mise en œuvre de protocoles de recherche ouverts et transparents avec le logiciel libre R.
+
+## Liens utiles
+
+* site de présentation de l'école : https://sigr2020.sciencesconf.org/
+* site de l'école "de travail" avec les liens vers les présentations et le pad collaboratif : https://sigr2021.github.io/site/
+* dépôt github de l'école : https://github.com/sigr2021
+
+## En bref : sélection de quelques points abordés
+
+### Bonnes pratiques en matière de reproductibilité
+
+2 points clés de la formation, qui sont revenus tout au long :
+
+* Pour documenter son code, ou pour des besoins de formations : on peut créer des "documents computationnels" en [R Markdown](#atelier_ysebaert_lundi) (programmation lettrée), alternant texte explicatif en markdown et code R. Ces documents peuvent être exportés en HTML, PDF... ([exemple de doc R Markdown](https://github.com/sigr2021/markdown/blob/main/index.Rmd) et [sa sortie HTML](https://sigr2021.github.io/markdown/)
+* Utilisation de [git](https://peerj.com/preprints/3159v2/) pour garder trace de tout l'historique des modifications d'un fichier texte (code, markdown...) et pour travailler à plusieurs sur un même fichier. On peut utiliser git non seulement pour du code, mais aussi par ex. pour travailler sur un article à plusieurs, et éviter les allers-retours de fichiers word par mail ! Il y a tout de même un coût d'entrée pour apprendre à se servir de cet outil.
+
+### Créer un environnement reproductible dans R
+
+Pour résoudre les problèmes du style "mon code ne fonctionne plus depuis la mise à jour d'hier", "mon code fonctionne sur mon ordi mais pas sur celui de mon collègue" et plus encore...
+
+* Pour faciliter le transfert de scripts R  : utilisation de gestionnaires de paquets tels que [Guix](https://guix.gnu.org/) ou [Nix](https://nixos.org/)
+* Pour travailler avec les mêmes versions des mêmes packages R : package [minicran](https://andrie.github.io/miniCRAN/)
+* Autre package pour créer des environnements reproductibles : [renv](https://rstudio.github.io/renv/)
+
+### Cartographie reproductible
+
+Reprendre facilement la carte que vous avez créée il y a 3 ans, ou bien réutiliser la mise en page que vous avez faite il y a 6 mois mais avec d'autres données, faire des cartes interactives pour les publier sur le web, et transmettre tout ça à vos collègues !
+
+* Créer des **cartes interactives** dans R en quelques lignes de code : package [mapview](https://r-spatial.github.io/mapview/) ou [tmap](https://mtennekes.github.io/tmap/) (tmap permet également la création de cartes statiques, on passe très facilement d'un mode à l'autre)
+* Créer des **cartes statiques** en R, avec le [package mapsf](https://riatelab.github.io/mapsf/) fait par un cartographe (Timothée Giraud) pour les cartographes !
+* Pour créer des **visualisations 2D et 3D avec du relief** : package [rayshader](https://www.rayshader.com/). Peut être utilisé par exemple pour [visualiser l'évolution du niveau de la mer](https://www.tylermw.com/wp-content/uploads/2018/07/montbayaboveweb2.mp4)
+
+### Analyse de données rasters
+
+2 packages à tester ?
+
+* Pour traiter des **séries d'images** (concept de data cubes) :  [package stars](https://r-spatial.github.io/stars/index.html), pratique aussi pour les images au format **netcdf**. Utile aussi pour travailler avec des données volumineuses, peut se connecter directement au fournisseur de la donnée
+* Pour de la **classification objet** sur des images RGB ou des données continues ou de catégories : package [supercells](https://github.com/Nowosad/supercells) (en cours de développement par Jakub Nowosad)
+
+### Pour se documenter et résoudre les problèmes
+
+Voir aussi la partie [Biblio]
+
+* La liste de diffusion [R-SIG-Geo](https://stat.ethz.ch/mailman/listinfo/r-sig-geo)
+* Pour poster un exemple reproductible sur une liste ou un forum : package R [reprex](https://github.com/tidyverse/reprex)
+* tag **#rspatial** sur Twitter, retweetés par le compte [talk_rspatial](https://twitter.com/talk_rspatial)
+
+### Divers
+
+* Pour réfléchir à une chaîne de traitement : outil [Excalibur](https://excalidraw.com/) pour créer des **organigrammes**
+* Pour accéder à des jeux de données spatiales tests, utile pour les formations par exemple : packages [spData](https://nowosad.github.io/spData/) et [spDataLarge](https://nowosad.github.io/spDataLarge/)
+* Possibilité de **créer des sites web simples** en R Markdown avec le package [blogdown](https://github.com/rstudio/blogdown) et le thème [Hugo](https://gohugo.io/)
+* Créditer les auteurs d'un article : utilisation de [CRediT](https://www.elsevier.com/authors/policies-and-guidelines/credit-author-statement) (Contributor Roles Taxonomy) pour préciser qui a fait quoi dans les auteurs d'un article (conceptualisation, méthodo, visualisation...)
+
+
+## Conférences et ateliers
+
+### Reproductibility crisis and Open Science
+
+***Arnaud Legrand**, [UMR LIG, CNRS](https://team.inria.fr/polaris/members/arnaud-legrand/) (conférence)*
+
+[Lien vers la présentation au format PDF](https://raw.githubusercontent.com/alegrand/SMPE/master/lectures/talk_21_06_28_Oleron.pdf)
+
+A travers plusieurs exemples de fraudes scientifiques ou d'erreurs involontaires, les notions de reproductibilité, réplicabilité, robustesse et généralisation sont introduites. 3 exemples de bonnes pratiques sont ensuite passés en revue avec pour chacune différents outils :
+
+1. la prise de notes et la documentation, à travers la programmation lettrée et les workflows
+2. le contrôle de l'environnement logiciel : rétrocompatibilité, écosystèmes (dépendances des bibliothèques entre elles), conteneurs et gestionnaires de paquets
+3. le contrôle de version et l'archivage, avec git et différents systèmes d'archives pour les articles, les données et les logiciels (évite les liens morts, cf. [The Decay and Failures of URL References](https://www.spinellis.gr/sw/url-decay/) et [Decay of References to Websites in Articles Published in General Medical Journals: Mainstream vs Small Journals](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3885908/))
+
+Pour terminer, la problématique de changement des pratiques est abordée au travers de différentes initiatives.
+
+Un exemple intéressant : un [article exécutable par Carl Boetinger](https://github.com/cboettig/noise-phenomena), qui utilise [binder](https://mybinder.org/), on peut reproduire le code utilisé dans l'article avec RStudio mais dans un navigateur !
+
+(note : dans cet article, un des liens pour télécharger les données n'est plus valide, ce qui ramène au point important de la pérennité des url)
+
+### Produire des documents reproductibles avec R Markdown
+
+***Ronan Ysebaert**, [UMS RIATE, CNRS](http://riate.cnrs.fr/?page_id=38) (atelier)*
+
+[Lien vers la présentation au format HTML](https://sigr2021.github.io/markdown/)
+
+[Lien vers le code de la présentation au format R Markdown](https://github.com/sigr2021/markdown/blob/main/index.Rmd)
+
+Un document markdown est un fichier texte utilisant une syntaxe très simple pour la mise en forme, comme par exemple :
+
+```
+# titre 1
+## titre 2
+*italique*
+**gras**
+```
+
+Ce qui donnera une fois interprété :
+
+<h1>titre 1</h1>
+
+<h2>titre 2</h2>
+
+*italique*
+
+**gras**
+
+(à tester par exemple [ici](https://stackedit.io/app#))
+
+Un document R Markdown mélange des morceaux (chunks) de code R et de texte mise en forme. C'est un outil pour faire la programmation lettrée (literate programming). Pour expliquer ce qu'est la programmation lettrée, une citation de **Donald Knuth** :
+
+>Au lieu de considérer que notre tâche principale est de dire à un ordinateur ce qu'il doit faire, appliquons-nous plutôt à expliquer à des êtres humains ce que nous voulons que l'ordinateur fasse. 
+
+Le R Markdown est particulièrement utile pour **expliquer un cheminement**, créer des **supports de formation**... Et même ce compte-rendu !
+
+Un document R Markdown peut être mouliné (tricoté selon la terminologie RStudio) pour créer des sorties au format HTML, PDF...
+
+Un bloc de code R pour l'exemple, son résultat est affiché dessous :
+
+```{r}
+print ("hello")
+```
+
+Il existe également des packages R pour créer en R Markdown des types de documents spécifiques, comme des [présentations](https://slides.yihui.org/xaringan/), des [livres](https://bookdown.org/yihui/rmarkdown-cookbook/), des [sites web](https://rcarto.gitpages.huma-num.fr/centralite/) ...
+
+Le fait de pouvoir créer des sites web légers très simplement peut être pratique pour des projets de recherche (pas besoin de déployer un CMS type wordpress ou de savoir faire du HTML).
+
+Après la théorie, l'atelier propose une **mise en pratique** avec création d'un projet R Markdown dans RStudio, ajouts de titres et de contenus (texte, tables figures...)
+
+Cet atelier se termine avec un focus sur les **bonnes pratiques pour avoir un code exécutable et lisible** : 
+
+* utiliser des fonctions ou des boucles pour les opérations répétitives
+* indentation claire
+* commentaires
+* optimiser les noms d'objets
+* limiter les dépendances
+* utiliser de préférence l'anglais
+
+### Présentez vos travaux en Markdown
+
+***Nicolas Lambert**, [UMS RIATE, CNRS](http://riate.cnrs.fr/?page_id=38) (atelier)* 
+
+[Lien vers la présentation au format HTML](https://sigr2021.github.io/xaringan/)
+
+[Lien vers le code de la présentation au format R Markdown](https://github.com/sigr2021/xaringan/blob/main/index.Rmd)
+
+Cet atelier présente le package R [Xaringan](https://github.com/yihui/xaringan) créé par Yihui Xie permettant de générer des présentations HTML à partir d'un document R Markdown. 
+
+C'est donc un outil qui peut remplacer PowerPoint par exemple, particulièrement utile pour présenter du code, mais nécessitant une prise en main. On peut inclure du code R et son résultat (texte, tableaux, graphiques, cartes...).
+
+La présentation de cet atelier et du précédent sont réalisées avec Xaringan.
+
+Pour utiliser Xaringan, ça aide de connaître un peu de HTML, on peut utiliser ses propres fichiers de style CSS. On peut intégrer dans une présentation Xaringan tous les éléments d'une page web : vidéos, iframe, carte interactive avec leaflet, code javascript...
+
+Un autre intérêt de Xaringan est de pouvoir utiliser différents [thèmes](https://bookdown.org/yihui/rmarkdown/css-and-themes.html) sans changer le contenu de la présentation.
+
+### Introduction à git
+
+***Thimothée Giraud**, [UMS RIATE, CNRS](http://riate.cnrs.fr/?page_id=38) (atelier)*
+
+[Lien vers la présentation au format HTML](https://sigr2021.github.io/git/)
+
+[Lien vers le code de la présentation au format R Markdown](https://github.com/sigr2021/git/blob/master/index.Rmd)
+
+*Lecture préalable : Bryan J. 2017. Excuse me, do you have a moment to talk about version control? PeerJ Preprints 5:e3159v2 https://doi.org/10.7287/peerj.preprints.3159v2*
+
+git = système de gestion de version, permet de :
+* garder trace de l'historique de toutes les modifications faites sur des fichiers texte (code)
+* travailler à plusieurs sur un même fichier texte
+* partager son code !
+
+Plusieurs plate-formes implémentent le logiciel git : GitHub, GitLab, + plate-formes institutionnelles
+
+L'objectif de l'atelier est de créer un compte github, configurer git sur sa machine avec une clé SSH pour s'authentifier, créer un dépôt = projet avec une présentation rmarkdown, et mettre en ligne cette présentation. Voir la présentation pour le pas à pas détaillé.
+
+### GIS and mapping - A lecture on the GIS and mapping ecosystem of R
+
+***Jakub Nowosad**, [Institute of Geoecology and Geoinformation - Adam Mickiewicz University, Pologne](https://nowosad.github.io/) et **Robin Lovelace**, [Institute for Transport Studies - University of Leeds, Royaume-Uni](https://environment.leeds.ac.uk/transport/staff/953/dr-robin-lovelace) (conférence)*
+
+[Lien vers la présentation au format HTML](https://nowosad.github.io/SIGR2021/lecture/lecture.html)
+
+[Lien vers le code de la présentation au format R Markdown](https://github.com/Nowosad/SIGR2021/blob/master/lecture/lecture.Rmd)
+
+L'écosystème R propose beaucoup d'outils pour les données géographiques, pour explorer des données, les traiter, les analyser, les transformer, les convertir vers d'autres formats, les visualiser... Il est donc important de prendre le bon outil pour ce qu'on veut faire !
+
+Il y a aussi pas mal d'outils pour partager [des cartes](https://rpubs.com/), des [workflow](https://excalidraw.com/), du [code](https://github.com/)...
+
+Liste de packages R utiles en :
+
+* [analyse de données spatiales](https://cran.r-project.org/web/views/Spatial.html)
+* [analyse de données spatio-temporelles](https://cran.r-project.org/web/views/SpatioTemporal.html)
+
+Derrière R, il y a de nombreuses librariries de l'[OSGeo](https://www.osgeo.org/) telles que **Proj**, **Gdal**, **Geos**... Ces librairies sont utilisées par la plupart des logiciels SIG (QGIS, ArcGIS...). Donc si un outil R ne fonctionne pas comme on le souhaite, c'est possible que l'outil équivalent de QGIS ou ArcGIS ait les mêmes défauts si le problème vient d'une des librairies "de base".
+
+Dans R, on peut appeler les algorithmes de nombreux logiciels SIG : QGIS, Saga, Grass, ArcGIS...
+
+Quelques packages pour manipuler des données raster ou vecteur :
+
+* données vecteur : package [sf](https://r-spatial.github.io/sf/) (successeur de sp, rgeos et rgdal)
+* données raster : package [terra](https://rspatial.org/terra/index.html) et son prédécesseur le package [raster](https://rspatial.org/raster/spatial/8-rastermanip.html)
+* séries de données raster ou vecteur, données spatio-temporelles : package [stars](https://r-spatial.github.io/stars/)
+
+Quelques packages pour visualiser des données :
+
+* cartes statiques : [mapsf](https://riatelab.github.io/mapsf/) : poussé niveau carto, permet de faire de la carto en respectant les règles de sémiologie graphique
+* cartes interactives : [leaflet](https://rstudio.github.io/leaflet/)
+* cartes statiques et interactives : [tmap](https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html). Pratique car permet de passer très facilement d'une carte statique à une carte interactive, mais moins axé cartographie que mapsf
+* pour représenter le relief : [rayshader](https://www.rayshader.com/)
+
+Il en existe beaucoup d'autres !
+
+La conférence se conclut par une présentation d'un ouvrage de Robin et Jakub : [Geocomputation with R](https://geocompr.robinlovelace.net/), un livre disponible en ligne et au format papier sur l'analyse et la visualisation de données géographiques avec R. Ce livre propose de nombreux exercices avec les packages sf, raster, tmap... pour effectuer de manière reproductible toutes les opérations courantes dans un logiciel SIG et au-delà (statistiques spatiales, carto interactive...).
+
+### Git avec des petits dessins
+
+***Arnaud Legrand**, [UMR LIG, CNRS](https://team.inria.fr/polaris/members/arnaud-legrand/) (atelier informel)*
+
+Il s'agit d'un atelier spontané pour aller plus loin sur git (le off de l'école !)
+
+Contenu inspiré de [cette présentation](https://gitlab.inria.fr/learninglab/mooc-rr/mooc-rr-ressources/-/raw/master/module1/slides/diapos_git.pdf?inline=false) du MOOC Recherche Reproductible
+
+Tests de quelques commandes git supplémentaires :
+
+* git checkout pour revenir à une version précédente
+* git diff pour voir la différence entre 2 versions
+* gitk pour gérer l'historique
+* pour gérer des gros fichiers : git annex
+* git blame pour savoir qui a écrit quoi
+
+Quelle interface graphique pour git ?
+
+* emacs magit (ça n'est pas à proprement parler une interface graphique ;-) )
+* [git kraken](https://www.gitkraken.com/) : pratique en cas de conflit. Permet de rendre git plus accessible !
+* [jupyterlab-git](https://github.com/jupyterlab/jupyterlab-git)
+
+Sur un autre sujet, comment créditer les auteurs : utilisation de [CRediT](https://www.elsevier.com/authors/policies-and-guidelines/credit-author-statement) (Contributor Roles Taxonomy) pour préciser qui a fait quoi dans les auteurs d'un article (conceptualisation, méthodo, visualisation...)
+
+### GIS and mapping workshop
+
+***Jakub Nowosad**, [Institute of Geoecology and Geoinformation - Adam Mickiewicz University, Pologne](https://nowosad.github.io/) et **Robin Lovelace**, [Institute for Transport Studies - University of Leeds, Royaume-Uni](https://environment.leeds.ac.uk/transport/staff/953/dr-robin-lovelace) (atelier)*
+
+Un atelier très dense où on verra comment utiliser les jeux de données test fournis dans certains packages R, importer des données OpenStreetMap, voir les données manquantes, et faire des cartes statiques et interactives !
+
+[Lien vers la partie 1 au format HTML](https://nowosad.github.io/SIGR2021/workshop1/workshop1_rl.html)
+
+[Lien vers la partie 1 au format R Markdown](https://github.com/Nowosad/SIGR2021/tree/master/workshop1)
+
+[Lien vers la partie 2 au format HTML](https://nowosad.github.io/SIGR2021/workshop1/workshop1_jn.html)
+
+[Lien vers la partie 2 au format R Markdown](https://github.com/Nowosad/SIGR2021/tree/master/workshop2)
+
+#### Partie 1 avec Robin Lovelace : importer des données, voir les données manquantes...
+
+Où trouver des **jeux de données exemple** ?
+
+* dans des packages dédiés : spData, spDataLarge, osmdata, nzelect
+* dans beaucoup de packages spatiaux : rayshader
+
+Ex. pour spData :
+
+Pour accéder à la documentation du package (et voir la liste des jeux de données disponibles) :
+
+```{r}
+help(package="spData")
+```
+
+Et pour avoir une description d'un jeu de données en particulier, ici afcon :
+```{r}
+help(afcon)
+```
+
+Pour savoir de quel type est un jeu de données (dataframe, raster...) :
+```{r}
+class(afcon)
+class(elev)
+```
+
+Pour accéder à un jeu de données :
+```{r}
+afcon <- spData::afcon
+head(afcon)
+```
+
+**Récupérer des données OpenStreetMap**, avec la fonction [opq](https://rdrr.io/cran/osmdata/man/opq.html) (overpass query) du package **osmdata** :
+```{r}
+nz_lonlat = sf::st_transform(nz, 4326)
+schools_nz_osm = opq(bbox = sf::st_bbox(nz_lonlat)) %>% 
+  add_osm_feature(key = "amenity", value = "school") %>% 
+  osmdata_sf()
+schools_nz_osm
+```
+
+Pour ne garder que les polygones :
+```{r}
+schools_nz_polygons = schools_nz_osm$osm_polygons
+plot(sf::st_geometry(schools_nz_polygons))
+```
+
+Voir les **données manquantes** : on supprime d'abord la colonne de géométrie pour que la commande [skim](https://cran.r-project.org/web/packages/skimr/vignettes/skimr.html#the-skim-function) du package skimr ne soit pas trop longue à se lancer
+```{r}
+schools_pol_nogeom <- st_drop_geometry(schools_nz_polygons)
+skim(schools_pol_nogeom)
+```
+
+**Une autre méthode pour extraire des données OpenStreetMap**, avec la fonction [oe_get](https://www.rdocumentation.org/packages/osmextract/versions/0.3.0/topics/oe_get) du package **osmextract** :
+
+```{r}
+place_name = "Finistere"
+et = c("amenity")
+q_points = "SELECT * FROM points WHERE amenity IN ('school')"
+oe_school_points = oe_get(place_name, provider = "openstreetmap_fr", query = q_points, extra_tags = et)
+```
+
+Pour visualiser ces données avec une carte interactive avec le package [mapview](https://r-spatial.github.io/mapview/) :
+```{r}
+mapview::mapview(oe_school_points)
+```
+
+On peut aussi simplifier des données avec la fonction [ms_simplify](https://rdrr.io/cran/rmapshaper/man/ms_simplify.html) du package rmapshaper, créer des zones tampon avec la fonction [st_buffer](https://r-spatial.github.io/sf/reference/geos_unary.html) du package sf... cf. https://geocompr.robinlovelace.net/geometric-operations.html
+
+#### Partie 2 avec Jakub Nowosad : visualiser les données avec le package tmap
+
+le package [tmap](https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html) permet de créer des cartes statiques ou interactives. Le principe est de partir d'un jeu de données, puis d'ajouter des éléments (autres couches de données, légende, échelle...)
+
+On récupère d'abord un jeu de données test du package spDataLarge, avec le package terra :
+
+```{r}
+nz_elev = rast(system.file("raster/nz_elev.tif", package = "spDataLarge"))
+```
+
+Puis pour en faire un carte :
+
+```{r}
+tm_shape(nz_elev) +
+  tm_graticules(col = "white") +
+  tm_raster(title = "Elevation (m asl)", 
+            style = "cont",
+            palette = brewer.pal(6,"YlOrBr")) +
+  tm_shape(nz) +
+  tm_borders(col = "darkgray", 
+             lwd = 1) +
+  tm_shape(nz_height) +
+  tm_symbols(size = 0.2, 
+             shape = 2,
+             col = "black") +
+  tm_add_legend(type = "symbol",
+                shape = 2,
+                size = 0.4,
+                col = "black",
+                title = "Highest peaks") +
+  tm_scale_bar(breaks = c(0, 200),
+               text.size = 0.8,
+               lwd = 0.1) +
+  tm_credits(text = "J. Nowosad, 2021") +
+  tm_layout(main.title = "New Zealand",
+            bg.color = "lightblue",
+            inner.margins = c(0, 0, 0, 0))
+```
+
+Voir la présentation, ou l'aide, pour détailler chacun des éléments de cette carte !
+
+Par exemple, pour de l'aide sur comment ajouter des graticules :
+```{r}
+help(tm_graticules)
+```
+
+Pour passer en mode interactif, il faut utiliser la commande `tmap_mode("view")` :
+```{r}
+tmap_mode("view") #plot or view
+
+tm_shape(nz_elev) +
+  tm_graticules(col = "white") +
+  tm_raster(title = "Elevation (m asl)", 
+            style = "cont",
+            palette = brewer.pal(6,"YlOrBr")) +
+  tm_shape(nz) +
+  tm_borders(col = "darkgray", 
+             lwd = 1) +
+  tm_shape(nz_height) +
+  tm_symbols(size = 0.2, 
+             shape = 2,
+             col = "black") +
+  tm_add_legend(type = "symbol",
+                shape = 2,
+                size = 0.4,
+                col = "black",
+                title = "Highest peaks") +
+  tm_scale_bar(breaks = c(0, 200),
+               text.size = 0.8,
+               lwd = 0.1) +
+  tm_credits(text = "J. Nowosad, 2021") +
+  tm_layout(main.title = "New Zealand",
+            bg.color = "lightblue",
+            inner.margins = c(0, 0, 0, 0))
+```
+
+Avec quelques limitations cependant : on ne peut pas utiliser de formes autres que des cercles ou des icônes prédéfinies par exemple (ici, les triangles sont remplacés par des cercles).
+
+On peut exporter la carte au format image ou vecteur avec la fonction `tmap_save`. Pour voir la liste des formats possibles :
+```{r}
+help(tmap_save)
+```
+
+
+### Sciences reproductibles et analyse spatiale : quelques lectures et retours d’expérience
+
+***Marianne Guérois**, [UMR Géographie-cités - Université de Paris](https://www.parisgeo.cnrs.fr/spip.php?article127&lang=fr) (conférence)*
+
+[Lien vers la présentation au format PDF](https://sigr2021.github.io/site/Seance_SIGR_30062021_MG.pdf)
+
+*Lecture préalable : Kedron P., Frazier A., Trgovac A., Nelson T., Fotheringham S., Reproducibility and Replicability in Geographical Analysis, 2019, Geographical Analysis, Volume 53, Issue 1. https://doi.org/10.1111/gean.12221*
+
+**Exemples d'erreurs et de controverses en analyse spatiale :**
+
+- Comparaison de 4 implémentations "ouvertes" et 2 implémentations "fermées" d'un même algorithme (Geographical Weighted Regression) : tous donnent le même résultat sauf ArcGIS. Pas moyen de savoir pourquoi ! (Brundson et al., 2016)
+- [Modifiable areal unit problem (MAUP)](https://en.wikipedia.org/wiki/Modifiable_areal_unit_problem) : selon la manière dont des données ponctuelles sont agrégées, les résultats des analyses peuvent être différents.
+
+**Les pionniers d'une approche reproductible :** Openshaw et al., étude sur les cancers infantiles dans les années 80 : en lien ou non avec la présence de la centrale nucléaire de Sellafield ? Ce lien venait d'un biais de pré-sélection, ce qu'a montré Openshaw en balayant la zone avec des millions de cercles de différentes tailles.
+
+**Quelles pratiques de sciences reproductibles en analyse spatiale ?** Etude de Konkol et al., 2019 : la méthodo est souvent documentée mais les données et le code sont rarement associés aux publis. Le besoin est reconnu, les auteurs savent a priori comment améliorer la reproductibilité de leurs travaux, mais ça n'est pas considéré comme une priorité car peu de valeur ajoutée (pas pris en compte dans les évaluations).
+
+**Reproductibilité : l'analyse spatiale est-elle un cas particulier ?**
+problème de l'échelle spatiale qui n'est pas toujours fixe, + principe d’hétérogénéités patiale : résultats obtenus dans une zone donnée ne sont pas nécessairement transposables à une autre zone.
+Synthèse de Kedron et al. (2021) avec 4 sources d'incertitudes lors du processus de recherche, qui compliquent la reproductibilité :
+
+* incertitudes conceptuelles
+* incertitudes de mesures
+* incertitudes liées aux analyes
+* incertitudes lors de la communication
+
+Ex. d'un problème d'**incertitude conceptuelle** ([Anne Ruas, 2020](https://cybergeo.hypotheses.org/688)) sur la notion d'**artificialisation** : le concept a "glissé" au cours du temps pour se confondre avec l'imperméabilisation, ce glissement étant lié à un changement de contexte. Il est donc difficile de comparer des taux d'artificialisation au cours du temps.
+
+Ex. d'un problème d'**incertitude liée aux données** avec un projet en cours au RIATE sur les AirDNA. Il s'agit d'une base de données vendue par une entreprise qui donne des infos sur les locations AirBnB. Ces données sont chères, certaines infos y sont difficilement accessibles (durées de séjour), problème d'imprécision spatiale.
+
+Ex. du projet [TRADEVE](https://hal-paris1.archives-ouvertes.fr/halshs-01311420/fr/) sur les trajectoires démographiques des aires urbaines européennes entre 1961 et 2011 : problème de l'harmonisation de bases de données urbaines :
+
+* multiplicité des définitions de la ville
+* plusieurs bases de données avec chacune ses limites
+* plusieurs modèles théoriques pour comparer les villes dans le temps (limites fixes ou changeantes...)
+* il y a aussi la question de la pertinence d'utiliser un seuil fixe de desnsité comme un des critères pour définir les agglomérations
+On ne peut pas toujours utiliser un modèle unique avec des paramètres identiques -> pertincence de la reproductibilité ? A quel niveau la placer ?
+
+### Tenir un journal de laboratoire avec emacs et orgmode
+
+***Arnaud Legrand**, [UMR LIG, CNRS](https://team.inria.fr/polaris/members/arnaud-legrand/) (atelier informel)*
+
+**journal de laboratoire** = fichier texte organisé de manière chronologique, on l'on note chaque jour ce que l'on fait, avec des tags.
+
+Un outil pour tenir ce journal : l'éditeur de texte [emacs](https://www.gnu.org/software/emacs/) avec [orgmode](https://orgmode.org/). Orgmode est un mode spécial pour emacs, adapté à la prise de note, la création de to-do listes, la programmation lettrée... Il suffit d'ouvrir un fichier .org dans emacs pour passer en orgmode (après configuration).
+
+Outil permettant d'être très efficace mais nécessitant un temps d'apprentissage !
+
+### Atelier analyse spatiale (Régression Géographiquement Pondérée ou GWR)
+
+***Thierry Feuillet**, [UMR LADYSS - Université Paris 8 Vincennes - Saint-Denis](https://www.ladyss.com/feuillet-thierry?lang=fr) (atelier)*
+
+[Lien vers la présentation au format HTML](https://sigr2021.github.io/gwr/)
+
+[Lien vers le code de la présentation au format R Markdown](https://sigr2021.github.io/gwr/)
+
+*Lecture préalable : Helbich, M., Brunauer, W., Hagenauer, J., & Leitner, M., Data-driven regionalization of housing markets, 2013. Annals of the Association of American Geographers, 103(4), 871-889. https://www.geog.uni-heidelberg.de/md/chemgeo/geog/lehrstuehle/gis/helbich_etal_2012.pdf*
+
+Atelier sur les prix de l'immobilier sur l'île d'Oléron : données DVF (Demandes de Valeurs Foncières) disponibles sur data.gouv en licence ouverte.
+
+Concepts manipulés :
+**Hétérogénéité spatiale**, qui a a pour traduction d'un point de vue statistique la **non-stationnarité spatiale**, c'est-à-dire l’instabilité, dans l’espace, des moyennes, des variances et des covariances.
+La méthode **GWR** est une méthode de régression locale pour explorer la non-stationnarité spatiale à travers des cartes de relation.
+
+Intérêts de la GWR :
+
+- outil d'exploration visuelle, permet d'identifier des variables locales pertinentes initialement omises
+- considère l'espace en continu, méthode non tributaire de découpages administratifs
+
+Faiblesses de la GWR :
+
+- pas mal de paramétrages "manuels" qui peuvent affecter les résultats et rendre les comparaisons difficiles d'une étude à l'autre (tester, et documenter !)
+- il faut un nombre minimum d'observations
+- l'interprétation est parfois délicate, nécessite de bien connaître le sujet
+
+La présentation inclue le pas à pas détaillé avec les commandes R. On trouvera aussi le détail de la méthode dans le chapitre 9 du manuel de géographie quantitative de T. Feuillet, E. Cossart et H. Commenges (2019).
+
+En résumé : 
+
+On regarde la distribution de la **variable dépendante**, = prix de vente des maisons. Après suppression d'une vaeur aberrante, cette distribution apparaît dissymétrique.
+
+On utilise comme **variables indépendantes** :
+
+- la distance au littoral
+- la surface du bâti
+- la surface du terrain
+
+Pour chacune des ces 3 variables, on regarde le nuage de points log/log avec la variable dépendante et on obtient :
+- prix du foncier et distance au littoral : relation plutôt négative, pas net
+- prix du foncier et surface bâti : relation positive
+- prix du foncier et surface terrain : relation positive
+
+On construit ensuite le modèle log-log global (MCO), en utlisant la fonction `lm` puisque la valeur foncière est une variable quantitative continue. On s'en sert pour faire une cartographie des résidus, qui semble difficile à interpréter. Beaucoup de points "foncés" = éloignés de 0 semble indiquer qu'il manque des variables dans le modèle.
+
+On va maintenant faire une **GWR** : on va faire autant de régressions locales que de maisons, en ne prenant en compte que le voisinage.
+
+Il faut d'abord définir le voisinage, on peut utiliser plusieurs méthodes :
+
+- **pondération exponentielle** : prend en compte ttes les maisons, avec pondération en fonction distance (fonction `nNeigh.exp`)
+- **pondération bicarrée** : au-delà d'une certaine distance, les maisons ne seront pas prises en compte (fonction `nNeigh.bisq`)
+
+On va estimer la GWR avec ces 2 pondérations, avec la fonction `gwr.basic`. La GWR avec pondération exponentielle est la plus performante, avec un r2 de 0.58 contre un r2 de 0.50 pour la pondération bicarrée. On voit aussi qu'il semble exister une non-stationnarité spatiale, et même des inversions de signes pour la distance au littoral.
+
+On cartographie ensuite les betas de chaque variable pour décrire cette non-stationnarité spatiale, en faisant 3 cartes, une pour chaque variable. Les points y apparaissent uniquement si leur t-value es supérieure à 1.96 c-à-d significatif.
+
+Il faut interpréter ces cartes, ce qui n'est pas évident, surtout ici sans bien connaître le sujet et la zone.
+
+L'atelier comportait aussi une partie sur la GWR multiscalaire, qu'on n'a pas eu le temps de voir.
+
+On termine avec la **régionalisation des sous-marchés immobiliers**. L'objectif est de délimiter des sous-marchés immobiliers, sur la base des coefficients de la GWR, ici avec l'algorithme [SKATER](http://www.jms-insee.fr/2018/S08_5_ACTE_ROUSSEZ_JMS2018.pdf).
+
+Il faut procéder en 4 étapes :
+
+1. Constuction d’un graphe de voisinage (contiguité ou knn)
+2. Pondération des liens du graphe à partir de la matrice de dissimilarité
+3. Construction de l’arbre portant minimal, en retenant le lien avec le voisin le plus ressemblant pour chaque noeud
+4. Elagage de l’arbre maximisant la variance inter-classes des sous-graphes
+
+On aboutit au final à 6 clusters. Si on prend l'exemple du cluster central de St Pierre d'Oléron, l'effet de la distance littoral est > moyenne, l'effet de la surface réelle < moyenne
+
+
+### Analyse d'image raster (et télédétection)
+
+***Malika Madelin**, [UMR PRODIG - Université de Paris](http://www.prodig.cnrs.fr/spip.php?article1589) (conférence)*
+
+[Lien vers la présentation au format HTML](https://mmadelin.github.io/sigr2021/SIGR2021_raster_MM.html#1)
+
+[Lien vers le dépôt gihub de la présentation](https://github.com/mmadelin/sigr2021)
+
+Il existe plusieurs plate-formes où on peut accéder aux images satellite : Copernicus (ESA), Earth Explorer, Sentinel Hub, Google Earth Explorer... Selon la plate-forme, pas toujours besoin de télécharger les données, on peut parfois lancer des traitements directement sur la plate-forme.
+
+### Faire des cartes avec le package R mapsf<a name="off_giraud_jeudi"></a>
+
+### Image processing and all things raster<a name="atelier_nowosad_vendredi"></a>
+
+### Questions et ressources générales sur l'utilisation de R
+
+[Introduction à R et RStudio (Hughes Pécout)](https://hpecout.gitpages.huma-num.fr/Intro_R_Rstudio_FR/#/)
+
+[Projet Rzine(https://rzine.fr/)] : partage de ressouurces autour de R dans les SHS
+
+Reproductibilité avec R, comment utiliser les mêmes versions de packages ?
+
+- **sessionInfo()**: commande R permettant de déclarer le système utilisé à la fin du programme ou du .rmd
+- **[package miniCRAN](https://cran.r-project.org/web/packages/miniCRAN/index.html)** : permet de faire un snapshot du CRAN et de lancer des programmes et pkgs anciens (et non de se connecter sur le CRAN courant, actualisé).
+- **[package renv](https://rstudio.github.io/renv/articles/renv.html)** : package pour gérer les dépendances (et leurs versions) des packages dans les projets RStudio (pas les versions de R).
+- **[Docker](https://jsta.github.io/r-docker-tutorial/)** : installer un Docker qui va conténairiser (outils, traitements, construction d'images) et éviter de travailler en local. Permet de contourner les problèmes de dépendance des logiciels, de faire des mises à jour en permanence (mais pas si simple à mettre en oeuvre !)
+
+**Bonne pratique : éviter au maximum les dépendances à des packages.**
+
+Question de la **reproductibilité opérationnelle** : ressources humaines et **(non) permanence des gens sur des postes pour conserver la mémoire des méthodes et outils**.
+
+## Biblio
+
+* Bryan J., Excuse me, do you have a moment to talk about version control?, 2017, PeerJ Preprints 5:e3159v2 https://doi.org/10.7287/peerj.preprints.3159v2
+* Desquilbet L., Granger S., Hejblum B., Legrand A., Pernot P., Rougier N., Vers une recherche reproductible - Faire évoluer ses pratiques, 2019, https://rr-france.github.io/bookrr/ (note : je l'ai au format papier si ça intéresse quelqu'un)
+* Feuillet T., Cossart E., Commenges H., Manuel de géographie quantitative - Concepts, outils, méthodes, 2019, https://hal.archives-ouvertes.fr/hal-02001070 (note : dispo dans mon bureau)
+* Helbich, M., Brunauer, W., Hagenauer, J., & Leitner, M., Data-driven regionalization of housing markets, 2013. Annals of the Association of American Geographers, 103(4), 871-889. https://www.geog.uni-heidelberg.de/md/chemgeo/geog/lehrstuehle/gis/helbich_etal_2012.pdf
+* Kedron P., Frazier A., Trgovac A., Nelson T., Fotheringham S., Reproducibility and Replicability in Geographical Analysis, 2019, Geographical Analysis, Volume 53, Issue 1. https://doi.org/10.1111/gean.12221
+* Pebesma E., Bivand R., Spatial Data Science with applications in R, 2021,  https://r-spatial.org/book/
+* Pouzat C., Legrand A., Hinsen K., MOOC Recherche Reproductible: Principes méthodologiques pour une science transparente, https://www.fun-mooc.fr/fr/cours/recherche-reproductible-principes-methodologiques-pour-une-science-transparente/
+
