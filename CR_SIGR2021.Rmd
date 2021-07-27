@@ -28,6 +28,7 @@ library(osmextract)
 library(tmap)
 library(terra)
 library(RColorBrewer)
+library(mapsf)
 ```
 
 *Oléron, 28 juin au 2 juillet 2021*
@@ -576,9 +577,9 @@ On aboutit au final à 6 clusters. Si on prend l'exemple du cluster central de S
 
 ***Malika Madelin**, [UMR PRODIG - Université de Paris](http://www.prodig.cnrs.fr/spip.php?article1589) (conférence)*
 
-[Lien vers la présentation au format HTML](https://mmadelin.github.io/sigr2021/SIGR2021_raster_MM.html#1)
+[Lien vers la présentation au format HTML](https://mmadelin.github.io/sigr2021/SIGR2021_raster_MM.html)
 
-[Lien vers le dépôt gihub de la présentation](https://github.com/mmadelin/sigr2021)
+[Lien vers le dépôt github de la présentation](https://github.com/mmadelin/sigr2021)
 
 Il existe plusieurs plate-formes où on peut accéder aux images satellite : Copernicus (ESA), Earth Explorer, Sentinel Hub, Google Earth Explorer... Selon la plate-forme, pas toujours besoin de télécharger les données, on peut parfois lancer des traitements directement sur la plate-forme.
 
@@ -619,9 +620,9 @@ r[is.na(r)] <- 0
 
 3 types d'opérations :
 
-- locales : reclassification, calculatrice raster...
-- focales : filtres passe-bas/passe-haut, calcul de pente...
-- zonales ou globales : statistiques zonales...
+- locales : on regarde les pixels en tant que tels, ex. reclassification, calculatrice raster...
+- focales : on regarde le pixel par rapport à ses voisins, ex. filtres passe-bas/passe-haut, calcul de pente...
+- zonales ou globales : on définit des zones, ex. statistiques zonales...
 
 Pour la visualisations, en +  des 3 packages déjà cités :
 
@@ -632,11 +633,47 @@ Pour la visualisations, en +  des 3 packages déjà cités :
 - rayshader
 - mapview...
 
-### Faire des cartes avec le package R mapsf<a name="off_giraud_jeudi"></a>
+### Faire des cartes avec le package R mapsf
 
-### Image processing and all things raster<a name="atelier_nowosad_vendredi"></a>
+***Timothée Giraud**, [UMS RIATE, CNRS](http://riate.cnrs.fr/?page_id=38) (présentation improvisée en 15 min)*
 
-### Questions et ressources générales sur l'utilisation de R
+Historique des packages développés par Timothée : rcarto > cartograpy > mapsf
+
+Cartography s'appuyait sur des packages qui ont été remplacés par sf : mapsf est une réécriture de cartography notamment pour utiliser sf.
+
+La fonction principale est [mf_map](https://riatelab.github.io/mapsf/reference/mf_map.html).
+
+Le package est [très bien documenté](https://riatelab.github.io/mapsf/), avec notamment la [liste des fonctions](https://riatelab.github.io/mapsf/reference/index.html).
+
+Juste un exemple rapide :
+```{r}
+# importe le jeu de données exemple sur la Martinique
+mtq <- mf_get_mtq()
+# utilise le thème algolight
+mf_theme("agolalight")
+# crée la carte de base
+mf_map(x = mtq)
+# ajoute des symboles proportionnels colorés en fonction du revenu médian
+mf_map(x = mtq, var = c("POP","MED"), type = "prop_choro")
+mf_title("Population and Wealth")
+```
+
+On peut aussi [ajouter des insets](https://riatelab.github.io/mapsf/articles/web_only/how_to_create_inset_maps.html) (petite carte pour situer la carte principale). Plusieurs [thèmes](https://riatelab.github.io/mapsf/articles/web_only/how_to_use_themes.html) sont définis et peuvent être modifiés.
+
+La carte peut être [exportée aux formats PNG et SVG](https://riatelab.github.io/mapsf/articles/web_only/how_to_export_maps.html).
+
+### Image processing and all things raster
+
+***Jakub Nowosad**, [Institute of Geoecology and Geoinformation - Adam Mickiewicz University, Pologne](https://nowosad.github.io/) (atelier)*
+
+[Lien vers la présentation au format HTML](https://nowosad.github.io/SIGR2021/workshop2/workshop2.html)
+
+[Lien vers le dépôt github de l'atelier](https://github.com/Nowosad/SIGR2021/tree/master/workshop2)
+
+
+
+
+### Questions, discussions et ressources générales sur l'utilisation de R
 
 [Introduction à R et RStudio (Hughes Pécout)](https://hpecout.gitpages.huma-num.fr/Intro_R_Rstudio_FR/#/)
 
