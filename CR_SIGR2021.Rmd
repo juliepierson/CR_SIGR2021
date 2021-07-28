@@ -7,14 +7,9 @@ output:
     toc_depth: 3
 ---
 
-<!-- <style> -->
-<!--   body { -->
-<!--     text-align: justify} -->
-<!-- </style> -->
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,
-                      eval = FALSE)
+                      eval = TRUE)
 ```
 
 Chargement des packages :
@@ -339,33 +334,32 @@ head(afcon)
 
 **Récupérer des données OpenStreetMap**, avec la fonction [opq](https://rdrr.io/cran/osmdata/man/opq.html) (overpass query) du package **osmdata** :
 ```{r}
-nz_lonlat = sf::st_transform(nz, 4326)
-schools_nz_osm = opq(bbox = sf::st_bbox(nz_lonlat)) %>% 
+northland_lonlat = sf::st_transform(nz[1,], 4326) # nz est dispo via le package spData, ici on ne prend qu'une seule région
+schools_nl_osm = opq(bbox = sf::st_bbox(northland_lonlat)) %>% 
   add_osm_feature(key = "amenity", value = "school") %>% 
   osmdata_sf()
-schools_nz_osm
 ```
 
 Pour ne garder que les polygones :
 ```{r}
-schools_nz_polygons = schools_nz_osm$osm_polygons
-plot(sf::st_geometry(schools_nz_polygons))
+schools_nl_polygons = schools_nl_osm$osm_polygons
 ```
 
 Voir les **données manquantes** : on supprime d'abord la colonne de géométrie pour que la commande [skim](https://cran.r-project.org/web/packages/skimr/vignettes/skimr.html#the-skim-function) du package skimr ne soit pas trop longue à se lancer
 ```{r}
-schools_pol_nogeom <- st_drop_geometry(schools_nz_polygons)
+schools_pol_nogeom <- st_drop_geometry(schools_nl_polygons)
 skim(schools_pol_nogeom)
 ```
 
 **Une autre méthode pour extraire des données OpenStreetMap**, avec la fonction [oe_get](https://www.rdocumentation.org/packages/osmextract/versions/0.3.0/topics/oe_get) du package **osmextract** :
 
-```{r}
-place_name = "Finistere"
+```{r results='hide', warning=FALSE, message=FALSE}
+place_name = "Canberra"
 et = c("amenity")
 q_points = "SELECT * FROM points WHERE amenity IN ('school')"
 oe_school_points = oe_get(place_name, provider = "openstreetmap_fr", query = q_points, extra_tags = et)
 ```
+*note : la recherche de nom de lieux n'est pas hyper au point, on peut tester avec `oe_match`*
 
 Pour visualiser ces données avec une carte interactive avec le package [mapview](https://r-spatial.github.io/mapview/) :
 ```{r}
@@ -386,7 +380,7 @@ nz_elev = rast(system.file("raster/nz_elev.tif", package = "spDataLarge"))
 
 Puis pour en faire un carte :
 
-```{r}
+```{r warning=FALSE, message=FALSE}
 tm_shape(nz_elev) +
   tm_graticules(col = "white") +
   tm_raster(title = "Elevation (m asl)", 
@@ -421,7 +415,7 @@ help(tm_graticules)
 ```
 
 Pour passer en mode interactif, il faut utiliser la commande `tmap_mode("view")` :
-```{r}
+```{r warning=FALSE, message=FALSE}
 tmap_mode("view") #plot or view
 
 tm_shape(nz_elev) +
@@ -615,12 +609,12 @@ On peut lire un même geotiff avec chacun de ces 3 packages, le résultat sera u
 Pour gérer les **valeurs manquantes** :
 
 Donne la valeur NA (non renseigné) aux pixels ayant pour valeur -9999 :
-```{r}
+```{r eval=FALSE}
 r[r[]== -9999] <- NA
 ```
 
 A l'inverse, donne aux pixels NA la valeur 0 :
-```{r}
+```{r eval=FALSE}
 r[is.na(r)] <- 0
 ```
 
@@ -649,7 +643,7 @@ Cartography s'appuyait sur des packages qui ont été remplacés par sf : mapsf 
 
 La fonction principale est [mf_map](https://riatelab.github.io/mapsf/reference/mf_map.html).
 
-Le package est [très bien documenté](https://riatelab.github.io/mapsf/), avec notamment la [liste des fonctions](https://riatelab.github.io/mapsf/reference/index.html).
+Le package est [bien documenté](https://riatelab.github.io/mapsf/), avec notamment la [liste des fonctions](https://riatelab.github.io/mapsf/reference/index.html).
 
 Juste un exemple rapide :
 ```{r}
@@ -777,7 +771,11 @@ srtm_utm_m = mask(srtm_utm_c, vect(zion)) # on combine généralement crop et ma
 ```
 
 Comparaison des 3 avec tmap :
-```{r}
+```{r echo=FALSE}
+tmap_mode("plot")
+```
+
+```{r message=FALSE, warning=FALSE}
 tc1 = tm_shape(srtm_utm) +
   tm_grid() + 
   tm_raster(style = "cont") +
@@ -802,7 +800,7 @@ tmap_arrange(tc1, tc2, tc3)
 Récupérer les valeurs d'un raster dans une couche de points, avec la fonction [extract](https://rdrr.io/cran/terra/man/extract.html) du package terra :
 ```{r}
 zion_points = read_sf(system.file("vector/zion_points.gpkg", package = "spDataLarge"))
-zion_extract = terra::extract(srtm_utm, vect(zion_points))
+zion_extract = terra::extract(srtm, vect(zion_points))
 head(zion_extract)
 ```
 
@@ -833,7 +831,7 @@ zion_srtm_values2 %>%
 ```
 
 **Rasterisation** : avec la fonction [rasterize](https://rdrr.io/github/rspatial/terra/man/rasterize.html) (package terra ou raster). On peut choisir de quelle manière la valeur des pixels sera déterminée (valeur fixe, attribut...). Par exemple pour compter les points :
-```{r}
+```{r warning=FALSE, message=FALSE}
 zion_points_utm = st_transform(zion_points, crs = crs(nlcd))
 raster_template = rast(ext(zion_points_utm), 
                        resolution = 4000,
@@ -860,7 +858,7 @@ La fonction [writeRaster](https://rdrr.io/cran/terra/man/writeRaster.html) prend
 
 Autocorrélation spatiale avec la fonction [autocor](https://rdrr.io/cran/terra/man/autocor.html) du package terra : utilise l'indice de Moran par défaut mais on peut aussi utiliser Geary.
 
-Segmentation d'images avec le package [supercells](https://github.com/Nowosad/supercells) en cours de développement par Jakub. Ce package permet de faire de la classif obket pour des images RGB, des rasters catégorisés ou continus.
+Segmentation d'images avec le package [supercells](https://github.com/Nowosad/supercells) en cours de développement par Jakub. Ce package permet de faire de la classif objet pour des images RGB, des rasters catégorisés ou continus.
 
 Chargement d'une ortho exemple :
 ```{r}
@@ -870,7 +868,7 @@ plot(ortho)
 ```
 
 Segmentation : 
-```{r}
+```{r message=FALSE, warning=FALSE}
 ortho_slic1 = supercells(ortho, k = 200, compactness = 10)
 plot(ortho)
 plot(st_geometry(ortho_slic1), add = TRUE)
