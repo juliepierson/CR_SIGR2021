@@ -12,7 +12,6 @@ knitr::opts_chunk$set(echo = TRUE,
                       eval = TRUE)
 ```
 
-Chargement des packages :
 ```{r eval=TRUE, include=FALSE}
 library(sf)
 library(spData)
@@ -1096,10 +1095,11 @@ Question de la **reproductibilité opérationnelle** : ressources humaines et **
 * Helbich, M., Brunauer, W., Hagenauer, J., & Leitner, M., Data-driven regionalization of housing markets, 2013. Annals of the Association of American Geographers, 103(4), 871-889. https://www.geog.uni-heidelberg.de/md/chemgeo/geog/lehrstuehle/gis/helbich_etal_2012.pdf
 * Hijmans R., Spatial Data Science with R, https://rspatial.org/
 * Kedron P., Frazier A., Trgovac A., Nelson T., Fotheringham S., Reproducibility and Replicability in Geographical Analysis, 2019, Geographical Analysis, Volume 53, Issue 1. https://doi.org/10.1111/gean.12221
+* Lovelace R., Nowosad J., Muenchow J., Geocomputation with R, 2021, https://geocompr.robinlovelace.net/
 * Pebesma E., Bivand R., Spatial Data Science with applications in R, 2021,  https://r-spatial.org/book/
 * Pouzat C., Legrand A., Hinsen K., MOOC Recherche Reproductible: Principes méthodologiques pour une science transparente, https://www.fun-mooc.fr/fr/cours/recherche-reproductible-principes-methodologiques-pour-une-science-transparente/
 
-## Autres ressources (sites web)
+### Autres ressources (sites web)
 
 * Comité pour la science ouverte, Ouvrir la science, https://www.ouvrirlascience.fr/
 * Mahr D., I hate coordinate systems ! https://ihatecoordinatesystems.com/
