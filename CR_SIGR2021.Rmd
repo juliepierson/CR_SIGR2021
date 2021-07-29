@@ -677,7 +677,7 @@ mco %>%
 
 On se sert du MCO pour faire une cartographie des résidus, qui semble difficile à interpréter :
 
-```{r echo=FALSE, fig.height=3}
+```{r echo=FALSE, fig.height=3, message=FALSE, warning=FALSE}
 dataSf$resMco <- mco$residuals
 tm_shape(dataSf) + tm_dots(col = "resMco", style = "quantile")
 ```
