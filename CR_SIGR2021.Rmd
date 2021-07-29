@@ -28,6 +28,12 @@ library(RColorBrewer)
 library(mapsf)
 library(spDataLarge)
 library(dplyr)
+library(gridExtra)
+library(plotly)
+library(tidyverse)
+library(here)
+library(gtsummary)
+library(GWmodel)
 ```
 
 *Oléron, 28 juin au 2 juillet 2021*
@@ -85,12 +91,13 @@ Reprendre facilement la carte que vous avez créée il y a 3 ans, ou bien réuti
 * Créer des **cartes statiques** en R, avec le [package mapsf](https://riatelab.github.io/mapsf/) fait par un cartographe (Timothée Giraud) pour les cartographes !
 * Pour créer des **visualisations 2D et 3D avec du relief** : package [rayshader](https://www.rayshader.com/). Peut être utilisé par exemple pour [visualiser l'évolution du niveau de la mer](https://www.tylermw.com/wp-content/uploads/2018/07/montbayaboveweb2.mp4)
 
-### Analyse de données rasters
+### Télédétetection/données rasters
 
-2 packages à tester ?
+3 packages à tester ?
 
 * Pour traiter des **séries d'images** (concept de data cubes) :  [package stars](https://r-spatial.github.io/stars/index.html), pratique aussi pour les images au format **netcdf**. Utile aussi pour travailler avec des données volumineuses, peut se connecter directement au fournisseur de la donnée
 * Pour de la **classification objet** sur des images RGB ou des données continues ou de catégories : package [supercells](https://github.com/Nowosad/supercells) (en cours de développement par Jakub Nowosad)
+* Pour les données lidar : package [lidR](https://jean-romain.github.io/lidRbook/index.html)
 
 ### Pour se documenter et résoudre les problèmes
 
@@ -99,6 +106,7 @@ Voir aussi la partie [Biblio]
 * La liste de diffusion [R-SIG-Geo](https://stat.ethz.ch/mailman/listinfo/r-sig-geo)
 * Pour poster un exemple reproductible sur une liste ou un forum : package R [reprex](https://github.com/tidyverse/reprex)
 * tag **#rspatial** sur Twitter, retweetés par le compte [talk_rspatial](https://twitter.com/talk_rspatial)
+* rapporter un bug : conseils du [site officiel R](https://www.r-project.org/bugs.html) et de [RStudio](https://github.com/rstudio/rstudio/wiki/Writing-Good-Bug-Reports)
 
 En conclusion : il faut souvent jongler d'un package à l'autre, et donc faire des conversions d'une classe à l'autre.
 
@@ -106,7 +114,7 @@ En conclusion : il faut souvent jongler d'un package à l'autre, et donc faire d
 
 * Pour réfléchir à une chaîne de traitement : outil [Excalibur](https://excalidraw.com/) pour créer des **organigrammes**
 * Pour accéder à des jeux de données spatiales tests, utile pour les formations par exemple : packages [spData](https://nowosad.github.io/spData/) et [spDataLarge](https://nowosad.github.io/spDataLarge/)
-* Possibilité de **créer des sites web simples** en R Markdown avec le package [blogdown](https://github.com/rstudio/blogdown) et le thème [Hugo](https://gohugo.io/)
+* Possibilité de **créer des sites web simples** en R Markdown avec le package [blogdown](https://github.com/rstudio/blogdown) et le thème [Hugo](https://gohugo.io/) (ex. : [Rzine](https://rzine.fr/))
 * Créditer les auteurs d'un article : utilisation de [CRediT](https://www.elsevier.com/authors/policies-and-guidelines/credit-author-statement) (Contributor Roles Taxonomy) pour préciser qui a fait quoi dans les auteurs d'un article (conceptualisation, méthodo, visualisation...)
 
 
@@ -177,7 +185,10 @@ Il existe également des packages R pour créer en R Markdown des types de docum
 
 Le fait de pouvoir créer des sites web légers très simplement peut être pratique pour des projets de recherche (pas besoin de déployer un CMS type wordpress ou de savoir faire du HTML).
 
-Après la théorie, l'atelier propose une **mise en pratique** avec création d'un projet R Markdown dans RStudio, ajouts de titres et de contenus (texte, tables figures...)
+Après la théorie, l'atelier propose une **mise en pratique** avec création d'un projet R Markdown dans RStudio, ajouts de titres et de contenus (texte, tables figures...), où on voit notamment que :
+
+* un document R Markdown commence par des métadonnées au format [YAML](https://en.wikipedia.org/wiki/YAML) avec le titre, l'auteur, le type de sortie... il y a donc très peu de choses à changer pour passer d'une sortie HTML à PDF par ex.
+* pour les blocs de code, on peut choisir différentes [options](https://yihui.org/knitr/options/) : code évalué ou non, sortie affichée ou non, taille des figures si figure il y a...
 
 Cet atelier se termine avec un focus sur les **bonnes pratiques pour avoir un code exécutable et lisible** : 
 
@@ -187,6 +198,20 @@ Cet atelier se termine avec un focus sur les **bonnes pratiques pour avoir un co
 * optimiser les noms d'objets
 * limiter les dépendances (préférer quelques lignes de code en plus mais un package en moins)
 * utiliser de préférence l'anglais
+
+Note : on peut aussi inclure des diagrammes en utilisant [Mermaid](https://mermaid-js.github.io/mermaid/) :
+```{r}
+DiagrammeR::mermaid("
+graph TD;
+A[point A] --> B{à pied}
+A --> C{à vélo}
+A --> D{à cheval}
+B --> E[point B]
+C --> E[point B]
+D --> E[point B]
+", height = 300)
+```
+
 
 ### Présentez vos travaux en Markdown
 
@@ -226,6 +251,11 @@ Plusieurs plate-formes implémentent le logiciel git : GitHub, GitLab, + plate-f
 
 L'objectif de l'atelier est de créer un compte github, configurer git sur sa machine avec une clé SSH pour s'authentifier, créer un dépôt = projet avec une présentation rmarkdown, et mettre en ligne cette présentation. Voir la présentation pour le pas à pas détaillé (c'est ce que j'ai utilisé pour ce CR).
 
+Ressources :
+
+- [Installer et configurer git sous linux, mac et windows](https://gitlab.inria.fr/learninglab/mooc-rr/mooc-rr-ressources/-/blob/master/module2/ressources/gitlab_fr.org)
+- [git et github pour les utilisateurs-trices R](https://happygitwithr.com/)
+ 
 ### GIS and mapping - A lecture on the GIS and mapping ecosystem of R
 
 ***Jakub Nowosad**, [Institute of Geoecology and Geoinformation - Adam Mickiewicz University, Pologne](https://nowosad.github.io/) et **Robin Lovelace**, [Institute for Transport Studies - University of Leeds, Royaume-Uni](https://environment.leeds.ac.uk/transport/staff/953/dr-robin-lovelace) (conférence)*
@@ -245,7 +275,9 @@ Liste de packages R utiles en :
 
 Derrière R, il y a de nombreuses librariries de l'[OSGeo](https://www.osgeo.org/) telles que **Proj**, **Gdal**, **Geos**... Ces librairies sont utilisées par la plupart des logiciels SIG (QGIS, ArcGIS...). Donc si un outil R ne fonctionne pas comme on le souhaite, c'est possible que l'outil équivalent de QGIS ou ArcGIS ait les mêmes défauts si le problème vient d'une des librairies "de base".
 
-Dans R, on peut appeler les algorithmes de nombreux logiciels SIG : QGIS, Saga, Grass, ArcGIS...
+Dans R, on peut appeler les algorithmes de nombreux logiciels SIG : QGIS avec [qgisprocess](https://github.com/paleolimbot/qgisprocess), Saga, Grass, ArcGIS...
+
+Pour **partager son code** : il y a plusieurs intermédiaires entre coder "tout seul" et créer un package, comme par ex. avoir un dépôt git avec un readme.
 
 Quelques packages pour manipuler des données raster ou vecteur :
 
@@ -260,7 +292,7 @@ Quelques packages pour visualiser des données :
 * cartes statiques et interactives : [tmap](https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html). Pratique car permet de passer très facilement d'une carte statique à une carte interactive, mais moins axé cartographie que mapsf
 * pour représenter le relief : [rayshader](https://www.rayshader.com/)
 
-Il en existe beaucoup d'autres !
+Il en existe beaucoup d'autres ! Chaque package stocke les données sous des formats différents, il faut [faire des conversions pour passer d'un package à l'autre](https://geocompr.github.io/post/2021/spatial-classes-conversion/).
 
 La conférence se conclut par une présentation d'un ouvrage de Robin et Jakub : [Geocomputation with R](https://geocompr.robinlovelace.net/), un livre disponible en ligne et au format papier sur l'analyse et la visualisation de données géographiques avec R. Ce livre propose de nombreux exercices avec les packages sf, raster, tmap... pour effectuer de manière reproductible toutes les opérations courantes dans un logiciel SIG et au-delà (statistiques spatiales, carto interactive...).
 
@@ -315,6 +347,11 @@ Pour accéder à la documentation du package (et voir la liste des jeux de donn�
 help(package="spData")
 ```
 
+Ou bien :
+```{r}
+library(help=spData)
+```
+
 Et pour avoir une description d'un jeu de données en particulier, ici afcon :
 ```{r}
 help(afcon)
@@ -345,9 +382,13 @@ Pour ne garder que les polygones :
 schools_nl_polygons = schools_nl_osm$osm_polygons
 ```
 
-Voir les **données manquantes** : on supprime d'abord la colonne de géométrie pour que la commande [skim](https://cran.r-project.org/web/packages/skimr/vignettes/skimr.html#the-skim-function) du package skimr ne soit pas trop longue à se lancer
+Voir les **données manquantes** : on supprime d'abord la colonne de géométrie pour que la commande [skim](https://cran.r-project.org/web/packages/skimr/vignettes/skimr.html#the-skim-function) du package skimr ne soit pas trop longue à se lancer.
 ```{r}
 schools_pol_nogeom <- st_drop_geometry(schools_nl_polygons)
+```
+
+Avec skim, on obtient un tableau avec une ligne par colonne de la table attributaire, avec pour chacune le nombre de valeurs manquantes, le nombre de valeurs uniques etc.
+```{r}
 skim(schools_pol_nogeom)
 ```
 
@@ -359,12 +400,27 @@ et = c("amenity")
 q_points = "SELECT * FROM points WHERE amenity IN ('school')"
 oe_school_points = oe_get(place_name, provider = "openstreetmap_fr", query = q_points, extra_tags = et)
 ```
-*note : la recherche de nom de lieux n'est pas hyper au point, on peut tester avec `oe_match`*
+*Note : la recherche de nom de lieux n'est pas hyper au point, on peut tester avec `oe_match`*
 
 Pour visualiser ces données avec une carte interactive avec le package [mapview](https://r-spatial.github.io/mapview/) :
-```{r}
+```{r fig.height=4}
 mapview::mapview(oe_school_points)
 ```
+
+Avec le package osmextract, on peut tester si des noms de lieux renvoient des résultats avec la fonction `oe_match`. En fait, ce package utilise des zones prédéfinies par chacun de ses 3 providers :
+
+```{r message=FALSE}
+oe_providers()
+```
+
+Pour voir ces zones pour un de ces providers, par ex. pour openstreetmap_fr :
+```{r}
+plot(st_geometry(openstreetmap_fr_zones))
+```
+
+En France, on est au niveau des départements.
+
+On n'a pas forcément de zones aussi fines qu'on le voudrait. Avec osmdata on peut spécifier exactement les coordonnées de l'emprise souhaitées, ou bien spécifier l'emprise d'une couche existante.
 
 On peut aussi simplifier des données avec la fonction [ms_simplify](https://rdrr.io/cran/rmapshaper/man/ms_simplify.html) du package rmapshaper, créer des zones tampon avec la fonction [st_buffer](https://r-spatial.github.io/sf/reference/geos_unary.html) du package sf... cf. https://geocompr.robinlovelace.net/geometric-operations.html
 
@@ -380,7 +436,7 @@ nz_elev = rast(system.file("raster/nz_elev.tif", package = "spDataLarge"))
 
 Puis pour en faire un carte :
 
-```{r warning=FALSE, message=FALSE}
+```{r warning=FALSE, message=FALSE, fig.height=4}
 tm_shape(nz_elev) +
   tm_graticules(col = "white") +
   tm_raster(title = "Elevation (m asl)", 
@@ -402,21 +458,26 @@ tm_shape(nz_elev) +
                text.size = 0.8,
                lwd = 0.1) +
   tm_credits(text = "J. Nowosad, 2021") +
-  tm_layout(main.title = "New Zealand",
-            bg.color = "lightblue",
+  tm_layout(bg.color = "lightblue",
             inner.margins = c(0, 0, 0, 0))
 ```
 
-Voir la présentation, ou l'aide, pour détailler chacun des éléments de cette carte !
+Voir la présentation, ou l'aide, pour détailler chacun des éléments de cette carte ! Le point de départ est une couche de données avec `tm_shape(nz_elev)`, il faut ensuite ajouter des options avec des `+`. On peut ajouter plusieurs couches, elles seront dessinées dans l'ordre indiqué (donc il faut mettre en dernier ce qu'on veut au-dessus).
 
-Par exemple, pour de l'aide sur comment ajouter des graticules :
+Pour de l'aide sur un élément, par ex. comment ajouter des graticules :
 ```{r}
 help(tm_graticules)
 ```
 
+Pour explorer les palettes de couleur :
+```{r eval=FALSE}
+tmaptools::palette_explorer()
+```
+
+
 Pour passer en mode interactif, il faut utiliser la commande `tmap_mode("view")` :
-```{r warning=FALSE, message=FALSE}
-tmap_mode("view") #plot or view
+```{r warning=FALSE, message=FALSE, fig.height=4}
+tmap_mode("view") # plot pour le mode statique, view pour le mode interactif
 
 tm_shape(nz_elev) +
   tm_graticules(col = "white") +
@@ -470,7 +531,8 @@ help(tmap_save)
 **Quelles pratiques de sciences reproductibles en analyse spatiale ?** Etude de Konkol et al., 2019 : la méthodo est souvent documentée mais les données et le code sont rarement associés aux publis. Le besoin est reconnu, les auteurs savent a priori comment améliorer la reproductibilité de leurs travaux, mais ça n'est pas considéré comme une priorité car peu de valeur ajoutée (pas pris en compte dans les évaluations).
 
 **Reproductibilité : l'analyse spatiale est-elle un cas particulier ?**
-problème de l'échelle spatiale qui n'est pas toujours fixe, + principe d’hétérogénéités patiale : résultats obtenus dans une zone donnée ne sont pas nécessairement transposables à une autre zone.
+problème de l'échelle spatiale qui n'est pas toujours fixe, + principe d’hétérogénéité patiale : résultats obtenus dans une zone donnée ne sont pas nécessairement transposables à une autre zone. On ne recherche donc pas la reproductibilité des résultats à tout prix (≠ sciences dures).
+
 Synthèse de Kedron et al. (2021) avec 4 sources d'incertitudes lors du processus de recherche, qui compliquent la reproductibilité :
 
 * incertitudes conceptuelles
@@ -531,6 +593,49 @@ La présentation inclue le pas à pas détaillé avec les commandes R. On trouve
 
 Petit résumé de l'atelier : 
 
+```{r echo=FALSE, results=FALSE, message=FALSE, warning=FALSE}
+data <- read_csv("https://files.data.gouv.fr/geo-dvf/latest/csv/2020/departements/17.csv.gz")
+# Filtre sur les ventes de maisons à Oléron avec coordonnées géographiques
+dataOleron <- data %>% 
+  filter(nom_commune %in% c("Dolus-d'Oléron",
+                            "La Brée-les-Bains",
+                            "Le Château-d'Oléron",
+                            "Le Grand-Village-Plage",
+                            "Saint-Denis-d'Oléron",
+                            "Saint-Georges-d'Oléron",
+                            "Saint-Pierre-d'Oléron",
+                            "Saint-Trojan-les-Bains") & 
+           nature_mutation == "Vente" & 
+           type_local == "Maison" &
+           !is.na(longitude) & 
+           !is.na(surface_terrain) &
+           !is.na(valeur_fonciere))
+# Conversion en sf
+dataSf <- dataOleron %>% 
+  st_as_sf(coords = c("longitude","latitude"), 
+           crs = 4326) # WGS84
+# lecture du fond de carte pour oléron (linéaire)
+path_to_shp <- paste0(dirname(here()), "/ateliers/GWR/gwr-main/oleron.shp")
+oleron <- st_read(path_to_shp)
+# Ajout d’une variable contextuelle : distance au littoral
+dataSf$dist_litt <- st_distance(dataSf, oleron) %>% 
+  as.numeric()
+# Exploration des variables
+
+# Distribution de la variable dépendante (prix de vente)
+plot_ly(dataSf, x = ~valeur_fonciere) %>% add_histogram()
+# Suppression d’une valeur aberrante < 1000€
+dataSf <- dataSf %>% filter(valeur_fonciere > 1000)
+# Suppression des maisons vraisemblablement trop petites
+dataSf <- dataSf %>% filter(surface_reelle_bati > 10)
+
+# Création des variables log (pour faciliter la carto par la suite)
+dataSf$log_valeur_fonciere <- log(dataSf$valeur_fonciere)
+dataSf$log_dist_litt <- log(dataSf$dist_litt)
+dataSf$log_surface_reelle_bati <- log(dataSf$surface_reelle_bati)
+dataSf$log_surface_terrain <- log(dataSf$surface_terrain)
+```
+
 On regarde la distribution de la **variable dépendante**, = prix de vente des maisons. Après suppression d'une vaeur aberrante, cette distribution apparaît dissymétrique.
 
 On utilise comme **variables indépendantes** :
@@ -540,24 +645,104 @@ On utilise comme **variables indépendantes** :
 - la surface du terrain
 
 Pour chacune des ces 3 variables, on regarde le nuage de points log/log avec la variable dépendante et on obtient :
+
+```{r echo=FALSE, fig.height=3}
+# prix du foncier et distance au littoral : relation plutôt négative, pas net
+p1 <-ggplot(dataSf, aes(x=log(dist_litt), y=log(valeur_fonciere))) + 
+  geom_point() + geom_smooth()
+# prix du foncier et surface bâti : relation positive
+p2 <- ggplot(dataSf, aes(x=log(surface_reelle_bati), y=log(valeur_fonciere))) + 
+  geom_point() + geom_smooth()
+# prix du foncier et surface terrain : relation positive
+p3 <- ggplot(dataSf, aes(x=log(surface_terrain), y=log(valeur_fonciere))) + 
+  geom_point() + geom_smooth()
+grid.arrange(p1, p2, p3, ncol=3)
+```
+
 - prix du foncier et distance au littoral : relation plutôt négative, pas net
 - prix du foncier et surface bâti : relation positive
 - prix du foncier et surface terrain : relation positive
 
-On construit ensuite le modèle log-log global (MCO), en utlisant la fonction `lm` puisque la valeur foncière est une variable quantitative continue. On s'en sert pour faire une cartographie des résidus, qui semble difficile à interpréter. Beaucoup de points "foncés" = éloignés de 0 semble indiquer qu'il manque des variables dans le modèle.
+On construit ensuite le modèle log-log global (MCO), en utlisant la fonction `lm` puisque la valeur foncière est une variable quantitative continue. 
 
-On va maintenant faire une **GWR** : on va faire autant de régressions locales que de maisons, en ne prenant en compte que le voisinage.
+A ce stade, on peut vérifier la [multicolinéarité](http://larmarange.github.io/analyse-R/multicolinearite.html) : est-ce que les variables explicatives sont interdépendantes ? Si oui, ça peut poser des problèmes pour interpréter les résultats. Pour mesurer la colinéarité, on regarde les **Facteurs d'Inflation de la Variance, FIV ou VIF en anglais** (fonction `vif` du package **car**). Ici, pas d'interdépendance a priori, avec des VIF autour de 1.
+
+Pour interpréter les résultats du modèle :
+
+```{r echo=FALSE}
+mco <- lm(log_valeur_fonciere ~ log_dist_litt + log_surface_reelle_bati + log_surface_terrain, data = dataSf)
+mco %>%
+  tbl_regression(intercept = TRUE)
+```
+
+* **beta** : coef de régression caractérisant le relation entre la variable à expliquer et les variables explicatives. Ici, beta = 0.46 pour la surface bâtie, donc si cette surface augmente de 1%, le prix augmente de 0.46%
+* **intervalle de confiance** : si 0 n'est pas compris dans l'IC, alors les relations sont significatives
+
+On se sert du MCO pour faire une cartographie des résidus, qui semble difficile à interpréter :
+
+```{r echo=FALSE, fig.height=3}
+dataSf$resMco <- mco$residuals
+tm_shape(dataSf) + tm_dots(col = "resMco", style = "quantile")
+```
+
+Beaucoup de points "foncés" = éloignés de 0 semble indiquer qu'il manque des variables dans le modèle.
+
+On va maintenant faire une **GWR** : on va faire **autant de régressions locales que d'individus** (maisons), en ne prenant en compte que le voisinage.
 
 Il faut d'abord définir le voisinage, on peut utiliser plusieurs méthodes :
 
 - **pondération exponentielle** : prend en compte ttes les maisons, avec pondération en fonction distance (fonction `nNeigh.exp`)
 - **pondération bicarrée** : au-delà d'une certaine distance, les maisons ne seront pas prises en compte (fonction `nNeigh.bisq`)
 
-On va estimer la GWR avec ces 2 pondérations, avec la fonction `gwr.basic`. La GWR avec pondération exponentielle est la plus performante, avec un r2 de 0.58 contre un r2 de 0.50 pour la pondération bicarrée. On voit aussi qu'il semble exister une non-stationnarité spatiale, et même des inversions de signes pour la distance au littoral.
+On va estimer la GWR avec ces 2 pondérations, avec la fonction `gwr.basic`. La GWR avec pondération exponentielle s'avère ici plus performante, avec un r2 de 0.58 contre un r2 de 0.50 pour la pondération bicarrée. On voit aussi qu'il semble exister une non-stationnarité spatiale, et même des inversions de signes pour la distance au littoral.
 
 On cartographie ensuite les betas de chaque variable pour décrire cette non-stationnarité spatiale, en faisant 3 cartes, une pour chaque variable. Les points y apparaissent uniquement si leur t-value es supérieure à 1.96 c-à-d significatif.
 
-Il faut interpréter ces cartes, ce qui n'est pas évident, surtout ici sans bien connaître le sujet et la zone.
+```{r echo=FALSE, warning=FALSE, message=FALSE, results='hide'}
+# package gwmodel pas compatible avec sf : conversion sf -> sp
+dataSp <- as_Spatial(dataSf)
+# Construction de la matrice de distances
+matDist <- gw.dist(dp.locat = coordinates(dataSp))
+# pondération exponentielle : prend en compte ttes les maisons, avec pondération en fonction distance
+nNeigh.exp <- bw.gwr(data = dataSp, approach = "AICc",
+                     kernel = "exponential",
+                     adaptive = TRUE,
+                     dMat = matDist,
+                     formula = log_valeur_fonciere ~ log_dist_litt + log_surface_reelle_bati + log_surface_terrain)
+# Estimation de la GWR avec pondération exponentielle
+GWR.exp <- gwr.basic(data = dataSp, bw = nNeigh.exp, kernel = "exponential", adaptive = TRUE,  dMat = matDist, formula = log_valeur_fonciere ~ log_dist_litt + log_surface_reelle_bati + log_surface_terrain)
+# Il faut maintenant cartographier les betas de chaque variable pour décrire cette non-stationnarité spatiale.
+# Fonction de cartographie automatique des coefficients GWR
+# TV = t-value : coefficient de régression divisé par son écart-type
+# des fois il faut faire attention même si coef de régression élevée si écart-type élevé
+# si t-value très basse, attention à l'interprétation
+mapGWR <- function(spdf,var,var_TV,legend.title = "betas GWR",main.title, dot.size = 0.3) {
+  tv <- spdf[abs(var_TV)>1.96,]
+  tm_shape(spdf) +
+    tm_dots(var, title = legend.title, size = dot.size) +
+    tm_shape(oleron) + tm_lines() +
+    tm_shape(tv) + tm_dots(col="grey40") +
+    tm_layout(title = main.title, legend.title.size =0.9, inner.margins = .15) 
+}
+# Planche cartographique des 3 variables
+# points apparaissent uniquement si t-value > seuil à 1.96 c-à-d significatif
+tmap_mode("plot")
+a <- mapGWR(GWR.exp$SDF, var = "log_dist_litt",var_TV = GWR.exp$SDF$log_dist_litt_TV,
+            main.title = "Distance au littoral")
+b <- mapGWR(GWR.exp$SDF, var = "log_surface_reelle_bati",var_TV = GWR.exp$SDF$log_surface_reelle_bati_TV,
+            main.title = "Surface bâtie")
+c <- mapGWR(GWR.exp$SDF, var = "log_surface_terrain",var_TV = GWR.exp$SDF$log_surface_terrain_TV,
+            main.title = "Surface terrain")
+
+# les 3 cartes ne sont pas comparables directement, il faudrait standardiser les coefficients
+tmap_arrange(a,b,c)
+```
+
+Il faut interpréter ces cartes, ce qui n'est pas évident, surtout ici sans bien connaître le sujet et la zone, mais très rapidement :
+
+- pour la distance au littoral : pas bien clair, peu significatif à certains endroits
+- pour la surface bâtie, c’est positif partout, donc c’est significatif partout
+- pour la surface terrain, il existe des zones homogènes, mais aussi des zones non significatives, au nord
 
 L'atelier comportait aussi une partie sur la GWR multiscalaire, qu'on n'a pas eu le temps de voir.
 
@@ -570,8 +755,7 @@ Il faut procéder en 4 étapes :
 3. Construction de l’arbre portant minimal, en retenant le lien avec le voisin le plus ressemblant pour chaque noeud
 4. Elagage de l’arbre maximisant la variance inter-classes des sous-graphes
 
-On aboutit au final à 6 clusters. Si on prend l'exemple du cluster central de St Pierre d'Oléron, l'effet de la distance littoral est > moyenne, l'effet de la surface réelle < moyenne
-
+On aboutit au final à 6 clusters. Si on prend l'exemple du cluster central de St Pierre d'Oléron, l'effet de la distance littoral est > moyenne, l'effet de la surface réelle < moyenne.
 
 ### Analyse d'image raster (et télédétection)
 
@@ -592,13 +776,13 @@ Avantage des données raster par rapport à la reproductibilité :
 * mode de production souvent homogène
 * données souvent accessibles
 * souvent dans des formats ouverts
-* bibliothèques C communes à plusieurs logiciels (GDAL...)
+* bibliothèques écrites en C communes à plusieurs logiciels (GDAL...)
 
 3 packages phares pour les raster sous R :
 
 * raster
-* stars
-* terra
+* stars : gère bien les rasters lourds car tuilage en amont
+* terra : successeur de raster
 
 Comparatif du blog [seascapemodels](https://www.seascapemodels.org/rstats/2021/06/01/STARS.html) :
 
@@ -637,16 +821,20 @@ Pour la visualisations, en +  des 3 packages déjà cités :
 
 ***Timothée Giraud**, [UMS RIATE, CNRS](http://riate.cnrs.fr/?page_id=38) (présentation improvisée en 15 min)*
 
-Historique des packages développés par Timothée : rcarto > cartograpy > mapsf
+Historique des packages développés par Timothée : rcarto (2013) > cartography (2015) > mapsf (2020)
 
 Cartography s'appuyait sur des packages qui ont été remplacés par sf : mapsf est une réécriture de cartography notamment pour utiliser sf.
 
-La fonction principale est [mf_map](https://riatelab.github.io/mapsf/reference/mf_map.html).
+La fonction principale est [mf_map](https://riatelab.github.io/mapsf/reference/mf_map.html), avec 3 arguments principaux :
+
+- une couche de données (objet sf)
+- la variable à représenter
+- le type de carte (choroplèthe, symboles proportionnels...)
 
 Le package est [bien documenté](https://riatelab.github.io/mapsf/), avec notamment la [liste des fonctions](https://riatelab.github.io/mapsf/reference/index.html).
 
 Juste un exemple rapide :
-```{r}
+```{r fig.height=4}
 # importe le jeu de données exemple sur la Martinique
 mtq <- mf_get_mtq()
 # utilise le thème algolight
@@ -681,7 +869,7 @@ srtm_s = read_stars(srtm_path) # stars
 ```
 
 Pour visualiser rapidement ce raster avec la fonction `plot()` :
-```{r}
+```{r fig.height=4, fig.width=5}
 plot(srtm)
 ```
 
@@ -709,7 +897,7 @@ rcl = matrix(c(0, 1500, 1,
 ```
 
 On utilise ensuite la fonction `reclassify()` du package raster :
-```{r}
+```{r fig.height=4, fig.width=5}
 srtm_recl = classify(srtm, rcl = rcl)
 plot(srtm_recl)
 ```
@@ -717,7 +905,7 @@ plot(srtm_recl)
 Quand on travaille avec des rasters à plusieurs bandes, la fonction [lapp](https://rdrr.io/cran/terra/man/lapp.html) du package terra permet d'appliquer une même fonction à chaque bande (ou aux bandes sélectionnées).
 
 **Opérations focales** (filtres) : on définit la fenêtre avec une matrice, et la fonction, ici la moyenne :
-```{r}
+```{r fig.height=3}
 srtm_focal_mean = focal(srtm, 
                    w = matrix(1, nrow = 9, ncol = 9), 
                    fun = mean)
@@ -727,7 +915,7 @@ plot(c(srtm, srtm_focal_mean))
 **Opérations zonales** :
 
 On commence par récupérer un raster catégorisé :
-```{r}
+```{r fig.height=3, fig.width=3}
 nlcd = rast(system.file("raster/nlcd2011.tif", package = "spDataLarge"))
 plot(nlcd)
 ```
@@ -764,7 +952,7 @@ Chargement d'un polygone avec les contours du parc national de Zion :
 zion = read_sf(system.file("vector/zion.gpkg", package = "spDataLarge"))
 ```
 
-Crop (découpe le raster par le rectangle englobant du polygone) et mask (ne garde que la valeur des pixels dans le polygone) :
+**Crop** (découpe le raster par le rectangle englobant du polygone) et **mask** (ne garde que la valeur des pixels dans le polygone) :
 ```{r}
 srtm_utm_c = crop(srtm_utm, vect(zion))
 srtm_utm_m = mask(srtm_utm_c, vect(zion)) # on combine généralement crop et mask
@@ -775,7 +963,7 @@ Comparaison des 3 avec tmap :
 tmap_mode("plot")
 ```
 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, fig.height=3}
 tc1 = tm_shape(srtm_utm) +
   tm_grid() + 
   tm_raster(style = "cont") +
@@ -805,7 +993,7 @@ head(zion_extract)
 ```
 
 On peut ensuite lier ces valeurs à la couche de points avec la fonction rbase `cbind()` :
-```{r}
+```{r fig.height=2}
 zion_points2 = cbind(zion_points, zion_extract)
 plot(zion_points2['srtm'])
 ```
@@ -831,7 +1019,7 @@ zion_srtm_values2 %>%
 ```
 
 **Rasterisation** : avec la fonction [rasterize](https://rdrr.io/github/rspatial/terra/man/rasterize.html) (package terra ou raster). On peut choisir de quelle manière la valeur des pixels sera déterminée (valeur fixe, attribut...). Par exemple pour compter les points :
-```{r warning=FALSE, message=FALSE}
+```{r warning=FALSE, message=FALSE, fig.height=3}
 zion_points_utm = st_transform(zion_points, crs = crs(nlcd))
 raster_template = rast(ext(zion_points_utm), 
                        resolution = 4000,
@@ -861,14 +1049,14 @@ Autocorrélation spatiale avec la fonction [autocor](https://rdrr.io/cran/terra/
 Segmentation d'images avec le package [supercells](https://github.com/Nowosad/supercells) en cours de développement par Jakub. Ce package permet de faire de la classif objet pour des images RGB, des rasters catégorisés ou continus.
 
 Chargement d'une ortho exemple :
-```{r}
+```{r fig.height=3}
 library(supercells)
 ortho = rast(system.file("raster/ortho.tif", package = "supercells"))
 plot(ortho)
 ```
 
 Segmentation : 
-```{r message=FALSE, warning=FALSE}
+```{r message=FALSE, warning=FALSE, fig.height=3}
 ortho_slic1 = supercells(ortho, k = 200, compactness = 10)
 plot(ortho)
 plot(st_geometry(ortho_slic1), add = TRUE)
@@ -880,7 +1068,9 @@ plot(st_geometry(ortho_slic1), add = TRUE)
 
 [Introduction à R et RStudio (Hughes Pécout)](https://hpecout.gitpages.huma-num.fr/Intro_R_Rstudio_FR/#/)
 
-[Projet Rzine](https://rzine.fr/) : partage de ressources autour de R dans les SHS
+[Projet Rzine](https://rzine.fr/) : partage de ressources autour de R dans les SHS, projet du [CIST](https://cist.cnrs.fr/)
+
+[Le spectre de la reproductibilité avec R, présentation de T. Giraud](https://rcarto.github.io/spectre-reproductibilite-r/)
 
 Reproductibilité avec R, comment utiliser les mêmes versions de packages ?
 
@@ -891,9 +1081,13 @@ Reproductibilité avec R, comment utiliser les mêmes versions de packages ?
 
 **Bonne pratique : éviter au maximum les dépendances à des packages.**
 
+Question de la **pérenité des outils et de la multiplicité des outils** (lequel choisir ?). La question des outils perturbe la reprodutibilité globale.
+
 Question de la **reproductibilité opérationnelle** : ressources humaines et **(non) permanence des gens sur des postes pour conserver la mémoire des méthodes et outils**.
 
 ## Biblio
+
+### Publications
 
 * Bryan J., Excuse me, do you have a moment to talk about version control?, 2017, PeerJ Preprints 5:e3159v2 https://doi.org/10.7287/peerj.preprints.3159v2
 * Desquilbet L., Granger S., Hejblum B., Legrand A., Pernot P., Rougier N., Vers une recherche reproductible - Faire évoluer ses pratiques, 2019, https://rr-france.github.io/bookrr/ (note : je l'ai au format papier si ça intéresse quelqu'un)
@@ -904,4 +1098,10 @@ Question de la **reproductibilité opérationnelle** : ressources humaines et **
 * Kedron P., Frazier A., Trgovac A., Nelson T., Fotheringham S., Reproducibility and Replicability in Geographical Analysis, 2019, Geographical Analysis, Volume 53, Issue 1. https://doi.org/10.1111/gean.12221
 * Pebesma E., Bivand R., Spatial Data Science with applications in R, 2021,  https://r-spatial.org/book/
 * Pouzat C., Legrand A., Hinsen K., MOOC Recherche Reproductible: Principes méthodologiques pour une science transparente, https://www.fun-mooc.fr/fr/cours/recherche-reproductible-principes-methodologiques-pour-une-science-transparente/
+
+## Autres ressources (sites web)
+
+* Comité pour la science ouverte, Ouvrir la science, https://www.ouvrirlascience.fr/
+* Mahr D., I hate coordinate systems ! https://ihatecoordinatesystems.com/
+
 
