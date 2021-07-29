@@ -107,8 +107,6 @@ Voir aussi la partie [Biblio]
 * tag **#rspatial** sur Twitter, retweetés par le compte [talk_rspatial](https://twitter.com/talk_rspatial)
 * rapporter un bug : conseils du [site officiel R](https://www.r-project.org/bugs.html) et de [RStudio](https://github.com/rstudio/rstudio/wiki/Writing-Good-Bug-Reports)
 
-En conclusion : il faut souvent jongler d'un package à l'autre, et donc faire des conversions d'une classe à l'autre.
-
 ### Divers
 
 * Pour réfléchir à une chaîne de traitement : outil [Excalibur](https://excalidraw.com/) pour créer des **organigrammes**
